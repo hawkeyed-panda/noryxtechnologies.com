@@ -1,0 +1,12 @@
+Replace this file with a real 1200×630px PNG named og-image.png.
+
+The file is referenced in index.html meta tags:
+  <meta property="og:image" content="https://noryxtechnologies.com/og-image.png" />
+  <meta name="twitter:image" content="https://noryxtechnologies.com/og-image.png" />
+
+Design specs:
+- Size: 1200 × 630px
+- Format: PNG
+- Content: NORYX logo + "Infrastructure for intelligent systems"
+- Background: #000000
+- Delete this file and replace with og-image.png before launch

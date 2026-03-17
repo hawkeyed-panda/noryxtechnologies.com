@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NORYX — Infrastructure for intelligent systems</title>
+  <meta name="description" content="Noryx is building an AI-native operating system — calm, intelligent, and built for the way humans actually think." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://noryxtechnologies.com/" />
+  <meta property="og:title" content="NORYX — Infrastructure for intelligent systems" />
+  <meta property="og:description" content="Noryx is building an AI-native operating system — calm, intelligent, and built for the way humans actually think." />
+  <meta property="og:image" content="https://noryxtechnologies.com/og-image.png" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@buildnoryx" />
+  <meta name="twitter:title" content="NORYX — Infrastructure for intelligent systems" />
+  <meta name="twitter:description" content="Noryx is building an AI-native operating system — calm, intelligent, and built for the way humans actually think." />
+  <meta name="twitter:image" content="https://noryxtechnologies.com/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── DESIGN TOKENS (from Figma spec) ─── */
+    :root {
+      --bg-primary:    #000000;
+      --bg-secondary:  #0A0D12;
+      --bg-button:     #161A20;
+      --text-primary:  #FFFFFF;
+      --text-silver:   #AEB3BB;
+      --text-medium:   #6B7280;
+      --text-muted:    #4B5563;
+      --border-steel:  #2A2F38;
+      --border-neural: #4F6AFF;
+      --accent:        #4F6AFF;
+      --glow: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(79,106,255,0.08) 50%, rgba(0,0,0,1) 100%);
+      --max: 1280px;
+      --px: 32px;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --dur: 150ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(calc(100% - var(--px) * 2), var(--max));
+      margin: 0 auto;
+    }
+
+    .wordmark {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      letter-spacing: 4px;
+      color: var(--text-primary);
+    }
+
+    /* ─── NAV ─── */
+    .nav-shell {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-steel);
+      overflow: hidden;
+    }
+
+    .nav-shell::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0.2;
+    }
+
+    .nav-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--glow);
+      filter: blur(15px);
+      pointer-events: none;
+    }
+
+    nav {
+      position: relative;
+      z-index: 1;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-symbol { width: 40px; height: 40px; mix-blend-mode: screen; filter: brightness(1.05); }
+    .nav-wordmark { font-size: 24px; letter-spacing: 3px; }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: var(--text-silver);
+    }
+
+    .nav-links a { transition: color var(--dur) var(--ease); }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--text-silver);
+      cursor: pointer;
+      transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn:hover { color: var(--text-primary); border-color: var(--border-neural); }
+    .btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #6678ff;
+      border-color: #6678ff;
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-steel);
+      color: var(--text-silver);
+    }
+
+    .btn-outline:hover {
+      color: var(--text-primary);
+      border-color: var(--border-neural);
+      background: transparent;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-steel);
+      overflow: hidden;
+      padding: 100px var(--px);
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background: var(--glow);
+      filter: blur(15px);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0.3;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-steel);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--text-silver);
+      margin-bottom: 20px;
+    }
+
+    .hero-symbol { width: 48px; height: 48px; margin-bottom: 20px; mix-blend-mode: screen; filter: brightness(1.05); }
+
+    h1 {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: clamp(30px, 4.5vw, 52px);
+      letter-spacing: 0.025em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      letter-spacing: 0.025em;
+      color: var(--text-silver);
+      line-height: 1.85;
+      max-width: 50ch;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ─── OS WINDOW ─── */
+    .os-frame {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .os-frame::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0.2;
+    }
+
+    .os-titlebar {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-steel);
+      background: rgba(0,0,0,0.5);
+      gap: 8px;
+    }
+
+    .os-dots { display: flex; gap: 6px; }
+    .os-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-steel); }
+
+    .os-titlebar-label {
+      flex: 1;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .os-body { padding: 14px; display: flex; gap: 10px; }
+
+    .os-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 38px;
+    }
+
+    .os-icon {
+      width: 36px; height: 36px;
+      border-radius: 2px;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color var(--dur) var(--ease);
+    }
+
+    .os-icon:hover, .os-icon.active { border-color: rgba(79,106,255,0.4); }
+
+    .os-main { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+    .spark {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(79,106,255,0.05);
+      border: 1px solid rgba(79,106,255,0.22);
+      border-radius: 2px;
+      padding: 9px 13px;
+    }
+
+    .spark-label { flex: 1; font-size: 12px; color: var(--text-silver); letter-spacing: 0.3px; }
+    .spark-label strong { color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; font-weight: 500; }
+
+    .spark-kbd {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      border: 1px solid var(--border-steel);
+      padding: 2px 6px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .chip {
+      padding: 4px 9px;
+      border-radius: 2px;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      font-size: 11px;
+      color: var(--text-silver);
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+    }
+
+    .chip:hover, .chip.active { border-color: rgba(79,106,255,0.35); color: var(--text-primary); }
+
+    .os-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+    .os-card {
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .os-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0.15;
+    }
+
+    .os-card-tag {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: rgba(79,106,255,0.75);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .os-card h4 {
+      font-size: 12px; font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .os-card p { font-size: 11px; color: var(--text-medium); line-height: 1.6; }
+    .os-card.span2 { grid-column: 1 / -1; }
+
+    .ai-row { display: flex; align-items: flex-start; gap: 8px; }
+
+    .ai-badge {
+      padding: 2px 7px;
+      background: rgba(79,106,255,0.1);
+      border: 1px solid rgba(79,106,255,0.25);
+      border-radius: 2px;
+      font-size: 9px;
+      color: rgba(79,106,255,0.85);
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+
+    .ai-text { font-size: 11px; color: var(--text-silver); line-height: 1.65; }
+
+    .cursor {
+      display: inline-block; width: 1px; height: 11px;
+      background: var(--accent);
+      margin-left: 1px; vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .dock {
+      display: flex; justify-content: center; gap: 5px;
+      padding: 8px 14px;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .dock-item {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; cursor: pointer; border-radius: 2px;
+      transition: background var(--dur) var(--ease);
+    }
+
+    .dock-item:hover { background: rgba(79,106,255,0.1); }
+
+    /* ─── SECTIONS ─── */
+    section { border-bottom: 1px solid var(--border-steel); }
+
+    .section-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 80px var(--px);
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--text-silver);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: clamp(22px, 3vw, 36px);
+      letter-spacing: 0.025em;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      letter-spacing: 0.025em;
+      color: var(--text-medium);
+      line-height: 1.8;
+      max-width: 58ch;
+    }
+
+    /* ─── FEATURES ─── */
+    .features-header { margin-bottom: 40px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .feature {
+      padding: 32px 28px;
+      border-right: 1px solid var(--border-steel);
+      border-bottom: 1px solid var(--border-steel);
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+      transition: background var(--dur) var(--ease);
+    }
+
+    .feature:hover { background: var(--bg-button); }
+
+    .feature::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0;
+      transition: opacity var(--dur) var(--ease);
+    }
+
+    .feature:hover::before { opacity: 0.25; }
+    .feature:nth-child(3n) { border-right: none; }
+    .feature:nth-last-child(-n+3) { border-bottom: none; }
+
+    .feature-num {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 16px;
+    }
+
+    .feature h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 0.025em;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .feature p { font-size: 12px; color: var(--text-medium); line-height: 1.75; }
+
+    /* ─── PHILOSOPHY ─── */
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .philosophy-quote {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: clamp(18px, 2.2vw, 26px);
+      letter-spacing: 0.025em;
+      line-height: 1.45;
+      color: var(--text-primary);
+    }
+
+    .accent-text { color: var(--accent); }
+
+    .philosophy-body { display: flex; flex-direction: column; gap: 20px; }
+
+    .philosophy-para {
+      font-size: 14px;
+      color: var(--text-silver);
+      line-height: 1.85;
+      letter-spacing: 0.025em;
+    }
+
+    .philosophy-para strong { color: var(--text-primary); font-weight: 500; }
+
+    .stats-row {
+      display: flex;
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 24px 28px;
+      border-right: 1px solid var(--border-steel);
+      position: relative;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0.2;
+    }
+
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.025em;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-label { font-size: 11px; letter-spacing: 1px; color: var(--text-medium); }
+
+    /* ─── ROADMAP ─── */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .roadmap-item {
+      padding: 28px 20px;
+      border-right: 1px solid var(--border-steel);
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+      transition: background var(--dur) var(--ease);
+    }
+
+    .roadmap-item:last-child { border-right: none; }
+    .roadmap-item:hover, .roadmap-item.active { background: var(--bg-button); }
+
+    .roadmap-item::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0;
+    }
+
+    .roadmap-item.active::before { opacity: 0.3; }
+
+    .roadmap-phase {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .roadmap-item.active .roadmap-phase { color: rgba(79,106,255,0.75); }
+
+    .roadmap-item h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.025em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .roadmap-item p { font-size: 11px; color: var(--text-medium); line-height: 1.7; }
+
+    .roadmap-tag {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .tag-active {
+      background: rgba(79,106,255,0.1);
+      border: 1px solid rgba(79,106,255,0.28);
+      color: rgba(79,106,255,0.85);
+    }
+
+    .tag-future {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-steel);
+      color: var(--text-muted);
+    }
+
+    /* ─── WAITLIST ─── */
+    .waitlist-section {
+      position: relative;
+      background: var(--bg-primary);
+      overflow: hidden;
+    }
+
+    .waitlist-section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0.3;
+    }
+
+    .waitlist-glow {
+      position: absolute;
+      inset: 0;
+      background: var(--glow);
+      filter: blur(15px);
+      pointer-events: none;
+    }
+
+    .waitlist-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .waitlist-symbol { width: 48px; height: 48px; margin-bottom: 18px; mix-blend-mode: screen; filter: brightness(1.05); }
+
+    .form-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--text-silver);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .form-row { display: flex; gap: 8px; }
+
+    .form-input {
+      flex: 1;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      padding: 10px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-primary);
+      outline: none;
+      letter-spacing: 0.3px;
+      transition: border-color var(--dur) var(--ease);
+    }
+
+    .form-input::placeholder { color: var(--text-muted); }
+    .form-input:focus { border-color: rgba(79,106,255,0.45); }
+
+    .form-field-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .form-select-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234B5563' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+      color: var(--text-muted);
+    }
+
+    .form-select option { background: var(--bg-button); color: var(--text-primary); }
+
+    .form-error {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      background: rgba(220,60,60,0.06);
+      border: 1px solid rgba(220,60,60,0.22);
+      border-radius: 2px;
+      font-size: 12px;
+      color: #ff6b6b;
+      letter-spacing: 0.3px;
+      margin-top: 8px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 600px) {
+      .form-field-row { flex-direction: column; }
+      .form-select-row { flex-direction: column; }
+    }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      letter-spacing: 0.3px;
+    }
+
+    .form-note a {
+      color: var(--text-medium);
+      border-bottom: 1px solid var(--border-steel);
+      transition: color var(--dur) var(--ease);
+    }
+
+    .form-note a:hover { color: var(--text-silver); }
+
+    .form-success {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(79,106,255,0.06);
+      border: 1px solid rgba(79,106,255,0.22);
+      border-radius: 2px;
+      font-size: 12px;
+      color: var(--text-silver);
+      letter-spacing: 0.3px;
+    }
+
+    /* ─── FOOTER — email footer spec ─── */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-steel);
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 48px var(--px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-symbol { width: 40px; height: 40px; margin-bottom: 10px; mix-blend-mode: screen; filter: brightness(1.05); }
+    .footer-wordmark { font-size: 16px; letter-spacing: 3px; margin-bottom: 4px; }
+
+    .footer-tagline {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--text-medium);
+      margin-bottom: 20px;
+    }
+
+    /* 160px divider lines — exact spec */
+    .footer-divider {
+      width: 160px; height: 1px;
+      background: var(--border-steel);
+      margin-bottom: 20px;
+    }
+
+    .footer-contact {
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: var(--text-medium);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .footer-legal {
+      font-size: 8px;
+      letter-spacing: 0.3px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      max-width: 440px;
+      margin-bottom: 6px;
+    }
+
+    .footer-copyright {
+      font-size: 8px;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      color: var(--text-silver);
+      transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      text-decoration: none;
+    }
+
+    .social-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-neural);
+    }
+
+    .social-btn svg { width: 15px; height: 15px; }
+    .social-btn svg path, .social-btn svg rect, .social-btn svg circle { transition: fill var(--dur) var(--ease), stroke var(--dur) var(--ease); }
+
+    /* ─── REVEAL ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .fade-in {
+      animation: fadeUp 0.55s var(--ease) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.12s; }
+    .d3 { animation-delay: 0.19s; }
+    .d4 { animation-delay: 0.27s; }
+    .d5 { animation-delay: 0.38s; }
+
+    /* ─── SCROLL PROGRESS BAR ─── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 200;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(79,106,255,0.5);
+    }
+
+    /* ─── HAMBURGER NAV ─── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      cursor: pointer;
+      padding: 8px;
+      transition: border-color var(--dur) var(--ease);
+    }
+
+    .hamburger:hover { border-color: var(--border-neural); }
+
+    .hamburger span {
+      display: block;
+      height: 1px;
+      background: var(--text-silver);
+      border-radius: 1px;
+      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease), background var(--dur) var(--ease);
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--text-primary); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--text-primary); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 80px; left: 0; right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-steel);
+      z-index: 99;
+      padding: 0;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s var(--ease), padding 0.3s var(--ease);
+    }
+
+    .mobile-menu.open {
+      max-height: 400px;
+      padding: 8px 0 16px;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 14px 32px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--text-silver);
+      border-bottom: 1px solid var(--border-steel);
+      transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+    }
+
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--text-primary); background: var(--bg-button); }
+
+    /* ─── FAQ SECTION ─── */
+    .faq-list {
+      margin-top: 40px;
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-steel);
+      background: var(--bg-secondary);
+      transition: background var(--dur) var(--ease);
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px;
+      cursor: pointer;
+      gap: 24px;
+      transition: background var(--dur) var(--ease);
+    }
+
+    .faq-q:hover { background: var(--bg-button); }
+
+    .faq-q-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.025em;
+      color: var(--text-primary);
+    }
+
+    .faq-icon {
+      width: 20px; height: 20px;
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color var(--dur) var(--ease), transform 0.25s var(--ease);
+    }
+
+    .faq-item.open .faq-icon {
+      border-color: rgba(79,106,255,0.4);
+      transform: rotate(45deg);
+    }
+
+    .faq-icon svg { width: 10px; height: 10px; }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s var(--ease), padding 0.3s var(--ease);
+      padding: 0 28px;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      padding: 0 28px 20px;
+    }
+
+    .faq-a p {
+      font-size: 13px;
+      color: var(--text-silver);
+      line-height: 1.8;
+      letter-spacing: 0.025em;
+      padding-top: 4px;
+      border-top: 1px solid var(--border-steel);
+      padding-top: 16px;
+    }
+
+    /* ─── GITHUB CTA ─── */
+    .github-band {
+      border-bottom: 1px solid var(--border-steel);
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .github-band::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-neural);
+      opacity: 0.15;
+    }
+
+    .github-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 40px var(--px);
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .github-left { display: flex; align-items: center; gap: 20px; }
+
+    .github-icon {
+      width: 44px; height: 44px;
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: var(--bg-button);
+    }
+
+    .github-icon svg { width: 22px; height: 22px; fill: var(--text-silver); }
+
+    .github-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.025em;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .github-sub {
+      font-size: 12px;
+      color: var(--text-medium);
+      letter-spacing: 0.025em;
+    }
+
+    /* ─── BACK TO TOP ─── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 40px; height: 40px;
+      background: var(--bg-button);
+      border: 1px solid var(--border-steel);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+      z-index: 99;
+    }
+
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover { border-color: var(--border-neural); transform: translateY(-2px); }
+    #back-to-top svg { width: 14px; height: 14px; stroke: var(--text-silver); }
+
+    /* ─── RESPONSIVE additions ─── */
+    @media (max-width: 960px) {
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+      .github-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    }
+
+    @media (max-width: 600px) {
+      #back-to-top { bottom: 20px; right: 20px; }
+    }
+    @media (max-width: 960px) {
+      .hero-inner, .philosophy-grid, .waitlist-inner { grid-template-columns: 1fr; gap: 48px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .feature:nth-child(3n) { border-right: 1px solid var(--border-steel); }
+      .feature:nth-child(2n) { border-right: none; }
+      .roadmap-grid { grid-template-columns: 1fr 1fr; }
+      .roadmap-item:nth-child(2n) { border-right: none; }
+      .roadmap-item { border-bottom: 1px solid var(--border-steel); }
+      .roadmap-item:last-child { border-bottom: none; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      :root { --px: 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature { border-right: none !important; }
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .roadmap-item { border-right: none; border-bottom: 1px solid var(--border-steel); }
+      .stats-row { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border-steel); }
+      .stat:last-child { border-bottom: none; }
+      .form-row { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Scroll progress bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#features" onclick="closeMobileMenu()">Features</a>
+    <a href="#vision" onclick="closeMobileMenu()">Vision</a>
+    <a href="#roadmap" onclick="closeMobileMenu()">Roadmap</a>
+    <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+    <a href="#waitlist" onclick="closeMobileMenu()">Get early access</a>
+  </div>
+
+  <!-- ─── NAV ─── -->
+  <div class="nav-shell">
+    <nav class="wrap">
+      <a href="#" class="nav-brand">
+        <img src="data:image/png;base64,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" class="nav-symbol" alt="NORYX" style="image-rendering: pixelated;" />
+        <span class="wordmark nav-wordmark">NORYX</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#vision">Vision</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a href="#waitlist" class="btn btn-primary" style="padding: 9px 18px; font-size: 12px; letter-spacing: 0.5px; display: inline-flex;">
+        Get early access
+        <svg viewBox="0 0 12 12" fill="none">
+          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" style="border-bottom: 1px solid var(--border-steel);">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow fade-in d1">BUILDING IN STEALTH · DEVELOPER PREVIEW Q4 2026</p>
+        <img src="data:image/png;base64,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" class="hero-symbol fade-in d2" alt="NORYX" style="image-rendering: pixelated;" />
+        <h1 class="fade-in d3">Computing should feel intelligent by default.</h1>
+        <p class="hero-sub fade-in d4">
+          Noryx is an AI-native operating system built from the ground up — not AI bolted onto old interfaces. A new system layer where intelligence lives in the fabric of the OS itself.
+        </p>
+        <div class="hero-actions fade-in d5">
+          <a href="#waitlist" class="btn btn-primary" style="padding: 10px 20px; font-size: 13px; letter-spacing: 0.5px;">
+            Join the waitlist
+            <svg viewBox="0 0 12 12" fill="none" width="12" height="12">
+              <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#vision" class="btn btn-outline" style="padding: 10px 20px; font-size: 13px; letter-spacing: 0.5px;">
+            Read the vision
+          </a>
+        </div>
+      </div>
+
+      <!-- OS mock window -->
+      <div class="fade-in d5">
+        <div class="os-frame">
+          <div class="os-titlebar">
+            <div class="os-dots"><span></span><span></span><span></span></div>
+            <div class="os-titlebar-label">NORYX OS — DEVELOPER CONCEPT</div>
+          </div>
+          <div class="os-body">
+            <div class="os-sidebar">
+              <div class="os-icon active">⬡</div>
+              <div class="os-icon">📁</div>
+              <div class="os-icon">📅</div>
+              <div class="os-icon">✉️</div>
+              <div class="os-icon">🎵</div>
+            </div>
+            <div class="os-main">
+              <div class="spark">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M6.5 1L7.8 4.7L11.5 6L7.8 7.3L6.5 11L5.2 7.3L1.5 6L5.2 4.7L6.5 1Z" stroke="#4F6AFF" stroke-width="1.1" stroke-linejoin="round"/>
+                </svg>
+                <div class="spark-label"><strong>Spark Search</strong> — What do you want to do?</div>
+                <span class="spark-kbd">⌘ SPACE</span>
+              </div>
+              <div class="chips">
+                <span class="chip active">Summarize today's work</span>
+                <span class="chip">Find design assets</span>
+                <span class="chip">Focus mode · 45 min</span>
+                <span class="chip">Investor brief</span>
+              </div>
+              <div class="os-cards">
+                <div class="os-card">
+                  <div class="os-card-tag">Noryx.AI</div>
+                  <h4>Contextual workspace</h4>
+                  <p>The system understands your task and surfaces the right tools.</p>
+                </div>
+                <div class="os-card">
+                  <div class="os-card-tag">Privacy Core</div>
+                  <h4>On-device only</h4>
+                  <p>All inference runs locally. Your data never leaves the machine.</p>
+                </div>
+                <div class="os-card span2">
+                  <div class="ai-row">
+                    <span class="ai-badge">AI</span>
+                    <div class="ai-text">
+                      I've summarized 14 open tasks, archived 3 completed projects, and scheduled your standup. Focus streak: 4 days — your best yet.<span class="cursor"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dock">
+                <div class="dock-item">🏠</div>
+                <div class="dock-item">📁</div>
+                <div class="dock-item">🖼️</div>
+                <div class="dock-item">🎵</div>
+                <div class="dock-item">✉️</div>
+                <div class="dock-item">📝</div>
+                <div class="dock-item">⚙️</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ─── -->
+  <section id="features">
+    <div class="section-wrap">
+      <div class="features-header reveal">
+        <div class="section-label">What we're building</div>
+        <h2>Five pillars. One coherent system.</h2>
+        <p class="section-sub">Every element of Noryx OS is designed around one promise: everything you do, faster and calmer.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature reveal">
+          <div class="feature-num">01</div>
+          <h3>Calm Glass design language</h3>
+          <p>Soft depth, subtle motion, 60–120Hz friendly. Large targets, edge gestures, and a command palette that replaces menu hunting forever.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="feature-num">02</div>
+          <h3>Snappy to everything</h3>
+          <p>Under 200ms to anything visible. Under 1s cold-start on SSD. Enforced by CI performance budgets — regressions block release.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="feature-num">03</div>
+          <h3>Immutable and atomic</h3>
+          <p>OSTree-based immutable base, atomic updates, and instant rollback. Btrfs snapshots, SELinux enforcing, sandboxed Flatpak portals.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="feature-num">04</div>
+          <h3>Noryx.AI — private, on-device</h3>
+          <p>Local LLM runner with GPU paths (CUDA, ROCm, Vulkan). Hold-to-talk from anywhere. All data stays on your machine by default.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="feature-num">05</div>
+          <h3>Runs everything, day one</h3>
+          <p>Linux Flatpaks, Android via Waydroid, Windows via Wine/Proton, and cloud fallbacks. Native → Android → Wine → VM, always in that order.</p>
+        </div>
+        <div class="feature reveal" style="border-top-color: rgba(79,106,255,0.2);">
+          <div class="feature-num" style="color: rgba(79,106,255,0.65);">SDK</div>
+          <h3>NoryxKit for developers</h3>
+          <p>Qt 6/QML templates, Flutter, Rust bindings, AI JSON APIs, and a <code style="font-size:11px;color:rgba(79,106,255,0.75);letter-spacing:0.5px;">noryxctl</code> CLI to build, sign, and ship.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VISION ─── -->
+  <section id="vision">
+    <div class="section-wrap">
+      <div class="philosophy-grid">
+        <div class="reveal">
+          <div class="section-label">The vision</div>
+          <p class="philosophy-quote">
+            The first <span class="accent-text">calm</span>, AI-native desktop that runs your apps — and gets out of your way.
+          </p>
+        </div>
+        <div class="philosophy-body">
+          <p class="philosophy-para reveal">
+            Today's operating systems treat AI as an add-on — a chatbot layered over decades-old interface patterns. <strong>Noryx rethinks the whole stack.</strong> Intelligence is woven into files, notifications, settings, search, and every app from day one.
+          </p>
+          <p class="philosophy-para reveal">
+            Most users have accepted that computers demand adaptation. They hunt through menus, manage fragmented workflows, and patch together apps that don't talk to each other. <strong>Noryx inverts this contract</strong> — the system adapts to you, surfacing what you need when you need it.
+          </p>
+          <p class="philosophy-para reveal">
+            We're starting with x86 laptops and desktops — the hardware where driver coverage is deepest. ARM comes in Year 2. A broader Noryx ecosystem — Noryx Phone, Slab, and PC — follows.
+          </p>
+          <div class="stats-row reveal">
+            <div class="stat">
+              <div class="stat-value">&lt;10s</div>
+              <div class="stat-label">Cold boot on NVMe</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">&lt;1.5s</div>
+              <div class="stat-label">AI first token, 7B local</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">0</div>
+              <div class="stat-label">Default telemetry</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ROADMAP ─── -->
+  <section id="roadmap">
+    <div class="section-wrap">
+      <div class="reveal">
+        <div class="section-label">Roadmap</div>
+        <h2>Built in stages, with long-term ambition.</h2>
+        <p class="section-sub">Noryx is early. We're moving fast and building in the open with a small, focused team.</p>
+      </div>
+      <div class="roadmap-grid reveal">
+        <div class="roadmap-item active">
+          <div class="roadmap-phase">Now · M0–M2</div>
+          <h3>Foundation</h3>
+          <p>Fedora OSTree image, kernel config, driver coverage, build pipeline. Flatpak repo bootstrap, theming, iconography.</p>
+          <span class="roadmap-tag tag-active">● In progress</span>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">M3–M4</div>
+          <h3>Shell Alpha</h3>
+          <p>Noryx UX — Dock, Panels, Notifications. Spark Search. Fizz Center quick settings.</p>
+          <span class="roadmap-tag tag-future">Upcoming</span>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">M5–M6</div>
+          <h3>AI Alpha</h3>
+          <p>Whisper.cpp + llama.cpp, tool plugins. Global hold-to-talk. Screen capture → explain.</p>
+          <span class="roadmap-tag tag-future">Upcoming</span>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">M7–M8</div>
+          <h3>Compatibility</h3>
+          <p>Waydroid GPU accel, Wine/Proton recipes, KVM VM manager. Noryx Store path.</p>
+          <span class="roadmap-tag tag-future">Upcoming</span>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">M9 · Q4 2026</div>
+          <h3>Dev Preview</h3>
+          <p>Closed cohort release. Performance passes, crash pipeline, full documentation.</p>
+          <span class="roadmap-tag tag-future">Q4 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GITHUB CTA ─── -->
+  <div class="github-band">
+    <div class="github-inner reveal">
+      <div class="github-left">
+        <div class="github-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="github-label">Follow the build on GitHub</div>
+          <div class="github-sub">Open-source core — OS launcher, Copilot CLI, design language under MPL 2.0</div>
+        </div>
+      </div>
+      <a href="https://github.com/noryxtechnologies" target="_blank" rel="noopener" class="btn btn-outline" style="padding: 10px 20px; font-size: 12px; letter-spacing: 0.5px; white-space: nowrap;">
+        View on GitHub
+        <svg viewBox="0 0 12 12" fill="none" width="11" height="11">
+          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+
+
+  <!-- ─── FAQ ─── -->
+  <section id="faq">
+    <div class="section-wrap">
+      <div class="reveal">
+        <div class="section-label">FAQ</div>
+        <h2>Common questions.</h2>
+        <p class="section-sub">Everything you need to know about Noryx OS before the developer preview.</p>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">What hardware will Noryx OS run on?</span>
+            <div class="faq-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="faq-a"><p>Year 1 targets x86-64 laptops and desktops with good Linux driver coverage — Framework Laptop 13/16, ThinkPad T/X series, Dell XPS 13/15, and similar. ARM support (Qualcomm/MediaTek reference boards) comes in Year 2.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">Can I run my existing apps on Noryx OS?</span>
+            <div class="faq-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="faq-a"><p>Yes. Noryx follows a compatibility priority: Native Linux/Flatpak apps first (VS Code, Chrome, Discord, Spotify, Steam), then Android apps via Waydroid, then Windows apps via Wine/Proton, then cloud fallbacks. Most mainstream apps work on day one.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">Is the AI on-device or cloud-based?</span>
+            <div class="faq-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="faq-a"><p>On-device by default. Noryx.AI runs a quantized local LLM (7B parameters) with full GPU acceleration via CUDA, ROCm, and Vulkan. No data leaves your machine unless you explicitly opt into a cloud connector. Zero default telemetry.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">When can I try it?</span>
+            <div class="faq-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="faq-a"><p>The Developer Preview (Month 9, Q4 2026) will go to a closed cohort of early sign-ups first. Join the waitlist to be in the first wave. A public open beta follows in Month 10–12.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">Is Noryx OS open source?</span>
+            <div class="faq-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="faq-a"><p>Core OS components — the launcher, Copilot CLI, and design language — are open-sourced under MPL 2.0. Proprietary UX layers, model weights, and first-party app assets are retained in-house. The SDK is open with a permissive license.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-text">How does Noryx handle updates and system stability?</span>
+            <div class="faq-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="faq-a"><p>Noryx uses an OSTree-based immutable base image. Updates are atomic — the entire OS image is swapped in one operation. If anything goes wrong, you roll back to the previous image instantly. Updates stage in the background and apply on reboot.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="waitlist-section" id="waitlist">
+    <div class="waitlist-glow"></div>
+    <div class="section-wrap">
+      <div class="waitlist-inner">
+        <div class="reveal">
+          <img src="data:image/png;base64,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" class="waitlist-symbol" alt="NORYX" style="image-rendering: pixelated;" />
+          <div class="section-label">Get involved early</div>
+          <h2>Follow the build from day zero.</h2>
+          <p class="section-sub">Join the waitlist for product updates, early previews, and developer access. No spam. Unsubscribe any time.</p>
+        </div>
+        <div class="reveal">
+          <div class="form-label">Join the waitlist</div>
+          <div id="form-row" style="max-width: 480px;">
+            <div class="form-field-row">
+              <input type="text" class="form-input" placeholder="Your name" id="name-input" autocomplete="name" />
+              <input type="email" class="form-input" placeholder="you@example.com" id="email-input" autocomplete="email" />
+            </div>
+            <div class="form-select-row">
+              <select class="form-input form-select" id="role-input">
+                <option value="" disabled selected>I am a...</option>
+                <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+                <option value="creator">Creator / Student</option>
+                <option value="investor">Investor</option>
+                <option value="other">Other</option>
+              </select>
+              <button class="btn btn-primary" id="submit-btn" onclick="submitWaitlist()" type="button" style="padding: 10px 20px; font-size: 13px; letter-spacing: 0.5px; white-space: nowrap;">
+                <span id="btn-text">Join waitlist</span>
+                <svg id="btn-spinner" viewBox="0 0 14 14" fill="none" width="14" height="14" style="display:none; animation: spin 0.8s linear infinite;">
+                  <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="20 15"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-success" id="form-success" style="max-width: 480px;">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <circle cx="6.5" cy="6.5" r="5.5" stroke="#4F6AFF" stroke-width="1.2"/>
+              <path d="M4 6.5l2 2 3.5-3.5" stroke="#4F6AFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            You're on the list. We'll be in touch.
+          </div>
+          <div class="form-error" id="form-error" style="max-width: 480px;"></div>
+          <p class="form-note" style="max-width: 480px;">
+            Or reach us at <a href="mailto:hello@noryxtechnologies.com">hello@noryxtechnologies.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to top -->
+  <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 11V3M3 7l4-4 4 4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- ─── FOOTER — email spec ─── -->
+  <footer>
+    <div class="footer-inner">
+      <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEsASwDASIAAhEBAxEB/8QAGgABAQEBAQEBAAAAAAAAAAAAAAgGCQcDBf/EAC4QAQAABAMFCAMBAQEAAAAAAAABAgMEBQYHCRE3drQXGFVXlJXS1AghQRIxUf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbrRTS/H9Wc1XOXMuXmGWt3bWM97PPf1J5KcZJZ6ckYQjJJPH/W+pL/N26Ef2DCime5Vqn4/kz1lz9c7lWqfj+TPWXP1wTMKZ7lWqfj+TPWXP1zuVap+P5M9Zc/XBMwpnuVap+P5M9Zc/XO5Vqn4/kz1lz9cEzCme5Vqn4/kz1lz9c7lWqfj+TPWXP1wTMKZ7lWqfj+TPWXP1zuVap+P5M9Zc/XBMwobNn4iak5ayri2Y77G8pVLTCrGte15KN1cRqTSUpIzzQlhGhCEZt0sd2+MIb/7BPIAAA3Wiml+P6s5qucuZcvMMtbu2sZ72ee/qTyU4ySz05IwhGSSeP8ArfUl/m7dCP7ev9yrVPx/JnrLn64JmFM9yrVPx/JnrLn653KtU/H8mesufrgmYUz3KtU/H8mesufrncq1T8fyZ6y5+uCZhTPcq1T8fyZ6y5+udyrVPx/JnrLn64JmH6ebMEustZqxbLl9Uo1LvCr6tZV56MYxpzT0p4yTRljGEIxl3yx3b4Qju/kH5gAAAAAAAAAAAACmdnFxvxnluv1NsmZTOzi434zy3X6m2Bf4AAAAAAAAAMZrtwQz5y3iPTVHJp1l124IZ85bxHpqjk0AACmdnFxvxnluv1Nsv9AGzi434zy3X6m2X+AAAAAADk1rtxvz5zJiPU1GMbPXbjfnzmTEepqMYAAAAAAAAAAAAApnZxcb8Z5br9TbJmUzs4uN+M8t1+ptgX+AACYPyy/IXOmk2ouH5cy5hmX7q0ucIp3s89/QrT1ITzVq0kYQjJVkh/ndTl/m/fGP7BT4gDvq6p+AZM9Hc/YO+rqn4Bkz0dz9gF/iAO+rqn4Bkz0dz9g76uqfgGTPR3P2AX+IA76uqfgGTPR3P2Dvq6p+AZM9Hc/YBZmu3BDPnLeI9NUcmlTYF+UGftSscsNOcdwjLNthOarmngl9WsravJcU6F1NCjUmpzT1ppYTwlnjGWM0s0IR3b4Rh+nrPcq0s8fzn6y2+uCABf8A3KtLPH85+stvrncq0s8fzn6y2+uDxnZxcb8Z5br9TbL/AHkGin49ZL0mzVc5jy5ieYLq7ubGeynkv69GenCSaenPGMISUpI/6305f7u3Rj+nr4AAAAAAOTWu3G/PnMmI9TUYxs9duN+fOZMR6moxgAAAAAAAAAAAACmdnFxvxnluv1NsmZTOzi434zy3X6m2Bf4ACANo7xvwbluh1Nyv9AG0d434Ny3Q6m5BMwAAAAANnoTxvyHzJh3U03WVya0J435D5kw7qabrKAAAAAAAAAADk1rtxvz5zJiPU1GMbPXbjfnzmTEepqMYAAAAAAAAAAAAApnZxcb8Z5br9TbJmUzs4uN+M8t1+ptgX+AAgDaO8b8G5bodTcr/AEAbR3jfg3LdDqbkEzAAAAAA2ehPG/IfMmHdTTdZXJrQnjfkPmTDuppusoAAAAAAAAAAOTWu3G/PnMmI9TUYxs9duN+fOZMR6moxgAAAAAAAAAAAACmdnFxvxnluv1NsmZTOzi434zy3X6m2Bf4ACANo7xvwbluh1Nyv9AG0d434Ny3Q6m5BMwAAAAANnoTxvyHzJh3U03WVya0J435D5kw7qabrKAAAAAAAAAADk1rtxvz5zJiPU1GMbPXbjfnzmTEepqMYAAAAAAAAAAAAApnZxcb8Z5br9TbJmUzs4uN+M8t1+ptgX+AAgDaO8b8G5bodTcr/AEAbR3jfg3LdDqbkEzAAAAAA1ujF3a2GsOS76+uaNraW2YLCtXr1qkJKdKSW4kjNPNNH9SywhCMYxj+oQg6cdrGlnmXkz322+bk0A6y9rGlnmXkz322+Z2saWeZeTPfbb5uTQDrL2saWeZeTPfbb5naxpZ5l5M99tvm5NAOsvaxpZ5l5M99tvmdrGlnmXkz322+bk0A6y9rGlnmXkz322+Z2saWeZeTPfbb5uTQDrL2saWeZeTPfbb5naxpZ5l5M99tvm5NAPWdWNPc/Y/qnm3HcCyPmbFcJxHG727sb6ywqvWt7qhUrzz06tOpJLGWeSaWMJpZpYxhGEYRhHczPZPqn5aZz9iufg6ZaE8EMh8t4d01NswcmuyfVPy0zn7Fc/B8b/TLUmwsbi+vtPc22tpbUpq1evWwa4kp0pJYb5p5poybpZYQhGMYx/UIQda2M124IZ85bxHpqgOTQAAAAAAAAACmdnFxvxnluv1NsmZTOzi434zy3X6m2Bf4ACANo7xvwbluh1Nyv9AG0d434Ny3Q6m5BMwAAAAAAAAAAAAAAAAAOsuhPBDIfLeHdNTbNjNCeCGQ+W8O6am2YDGa7cEM+ct4j01Rs2M124IZ85bxHpqgOTQAAAAAAAAAD2D8TdUMA0m1FxDMeY7PE7q0ucIqWUklhTknqQnmrUZ4RjCeeSH+d1Ob+798Yfp4+Av8A76ulngGc/R232Dvq6WeAZz9HbfYQAAv/AL6ulngGc/R232Hn+o+SsV/LPHKOo2nNxZYVhOHW0uCVqOPzzUbiavTmmrTTSy0ZassZP83EkIRjNCO+E363boxkBf8As4uCGM8yV+mtgeM9yrVPx/JnrLn653KtU/H8mesufrr/AAEAdyrVPx/JnrLn653KtU/H8mesufrr/AQB3KtU/H8mesufrncq1T8fyZ6y5+uv8BAHcq1T8fyZ6y5+udyrVPx/JnrLn66/wEAdyrVPx/JnrLn653KtU/H8mesufrr/AAHMfWv8es6aTZVtsx5jxPL91aXN9JZSSWFetPUhPNJUnhGMJ6UkP87qc39374w/Tx9f+0d4IYNzJQ6a5QAAAAAAADrLoTwQyHy3h3TU2zYzQnghkPlvDumptmAxmu3BDPnLeI9NUbNjNduCGfOW8R6aoDk0AAAAAAAAAAAAAAv/AGcXBDGeZK/TWyAF/wCzi4IYzzJX6a2BTIAAAAAAAAAJm2jvBDBuZKHTXKAF/wC0d4IYNzJQ6a5QAAAAAAADrLoTwQyHy3h3TU2zYzQnghkPlvDumptmAxmu3BDPnLeI9NUbNjNduCGfOW8R6aoDk0AAAAAAAAAAAAAAv/ZxcEMZ5kr9NbIAX/s4uCGM8yV+mtgUyAAAAAAAAACZto7wQwbmSh01ygBf+0d4IYNzJQ6a5QAAAAAAADrLoTwQyHy3h3TU2zYzQnghkPlvDumptmAxmu3BDPnLeI9NUbNjNduCGfOW8R6aoDk0AAAAAAAAAAAAAAv/AGcXBDGeZK/TWyAF/wCzi4IYzzJX6a2BTIAAAAAAAAAJm2jvBDBuZKHTXKAF/wC0d4IYNzJQ6a5QAAAAAAADrLoTwQyHy3h3TU2zYzQnghkPlvDumptmAxmu3BDPnLeI9NUbNjNduCGfOW8R6aoDk0AAAAAAAAAAAAAAv/ZxcEMZ5kr9NbIAX/s4uCGM8yV+mtgUyAAAAADJ6z3d1YaPZ0vrG5rWt3bZfv61CvRqRkqUp5beeMs8s0P3LNCMIRhGH7hGDmN2sap+Zec/fbn5umWu3BDPnLeI9NUcmgbPtY1T8y85++3PzO1jVPzLzn77c/NjAFTfhTi2K6lap4ngWo2J3ucsJoYJVu6Njj9ea/t6deWvQklqy060ZpYTwlnnlhNCG+EJ5ob90Yq/7J9LPLTJnsVt8EZ7OLjfjPLdfqbZf4MZ2T6WeWmTPYrb4HZPpZ5aZM9itvg2YDGdk+lnlpkz2K2+B2T6WeWmTPYrb4NmAxnZPpZ5aZM9itvgdk+lnlpkz2K2+DZgPjYWlrYWNvY2NtRtbS2pS0aFCjThJTpSSw3SySyw/UssIQhCEIfqEIPsADGa7cEM+ct4j01Rs2M124IZ85bxHpqgOTQAAAAAAAAAAAAAC/8AZxcEMZ5kr9NbIAW/+A2d8l5a0exaxzHm/L+DXdTMFatJQv8AEqNvUmkjb28ITwlnmhGMu+WaG/8A5vhH/wABXIxnaxpZ5l5M99tvmdrGlnmXkz322+YNmMZ2saWeZeTPfbb5naxpZ5l5M99tvmDZjGdrGlnmXkz322+Z2saWeZeTPfbb5ga7cEM+ct4j01RyadOdZ9TdNr/R7OljY6hZSuru5y/f0aFCjjNvPUqzzW88JZJZYT75poxjCEIQ/cYxcxgAAUzs4uN+M8t1+ptl/udv4DZhwDLWsOLX2Y8cwzBrSpl+tRkr393Jb05p43FvGEkJp4whGbdLNHd/3dCP/i3+1jSzzLyZ77bfMGzGM7WNLPMvJnvtt8ztY0s8y8me+23zBsxjO1jSzzLyZ77bfM7WNLPMvJnvtt8wbMYztY0s8y8me+23zO1jSzzLyZ77bfMGzGM7WNLPMvJnvtt8ztY0s8y8me+23zBs2M124IZ85bxHpqh2saWeZeTPfbb5snrPqbptf6PZ0sbHULKV1d3OX7+jQoUcZt56lWea3nhLJLLCffNNGMYQhCH7jGIOYwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/Z" class="footer-symbol" alt="NORYX" style="image-rendering: pixelated;" />
+      <div class="wordmark footer-wordmark">NORYX</div>
+      <div class="footer-tagline">Infrastructure for intelligent systems</div>
+      <div class="footer-divider"></div>
+      <div class="footer-contact">
+        <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="18707d7474775876776a61606c7d7b70767774777f717d6b367b7775">[email&#160;protected]</a><br>
+        www.noryxtechnologies.com
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-legal">
+        CONFIDENTIAL — This communication and any attachments are intended solely for the addressee.<br>
+        Unauthorized use, disclosure, or distribution is prohibited.
+      </div>
+      <div class="footer-socials">
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/company/noryx-technologies" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </a>
+        <!-- X / Twitter -->
+        <a href="https://x.com/buildnoryx" target="_blank" rel="noopener" class="social-btn" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <!-- Instagram -->
+        <a href="https://instagram.com/buildnoryx" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2" fill="none"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+            <rect x="16.5" y="5.5" width="2" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/profile.php?id=61582217492984" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </a>
+      </div>
+      <div class="footer-copyright">© 2026 NORYX. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Scroll progress bar ───
+    const progressBar = document.getElementById('progress-bar');
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    }
+
+    // ─── Back to top ───
+    const backBtn = document.getElementById('back-to-top');
+    function updateBackToTop() {
+      backBtn.classList.toggle('visible', window.scrollY > 400);
+    }
+
+    window.addEventListener('scroll', () => {
+      updateProgress();
+      updateBackToTop();
+    }, { passive: true });
+
+    // ─── Hamburger menu ───
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const burger = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      burger.classList.toggle('open');
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // Close mobile menu on outside click
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobile-menu');
+      const burger = document.getElementById('hamburger');
+      if (!menu.contains(e.target) && !burger.contains(e.target)) {
+        menu.classList.remove('open');
+        burger.classList.remove('open');
+      }
+    });
+
+    // ─── FAQ accordion ───
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Toggle clicked
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ─── Waitlist form ───
+    // IMPORTANT: Replace this URL with your deployed Apps Script Web App URL
+    const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+    async function submitWaitlist() {
+      const name  = document.getElementById('name-input').value.trim();
+      const email = document.getElementById('email-input').value.trim();
+      const role  = document.getElementById('role-input').value;
+      const btn   = document.getElementById('submit-btn');
+      const btnText    = document.getElementById('btn-text');
+      const spinner    = document.getElementById('btn-spinner');
+      const errorBox   = document.getElementById('form-error');
+
+      // Reset error
+      errorBox.style.display = 'none';
+
+      // Validate
+      if (!name) {
+        showError('Please enter your name.'); return;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('Please enter a valid email address.'); return;
+      }
+      if (!role) {
+        showError('Please select your role.'); return;
+      }
+
+      // Loading state
+      btn.disabled = true;
+      btnText.style.display = 'none';
+      spinner.style.display = 'block';
+
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ name, email, role, timestamp: new Date().toISOString(), source: 'website' })
+        });
+
+        const data = await res.json();
+
+        if (data.result === 'success') {
+          document.getElementById('form-row').style.display = 'none';
+          document.getElementById('form-success').style.display = 'flex';
+        } else if (data.result === 'duplicate') {
+          showError('This email is already on the waitlist!');
+          resetBtn();
+        } else {
+          throw new Error(data.error || 'Unknown error');
+        }
+      } catch (err) {
+        showError('Something went wrong. Please try again or email us directly.');
+        resetBtn();
+        console.error('Waitlist error:', err);
+      }
+    }
+
+    function showError(msg) {
+      const box = document.getElementById('form-error');
+      box.textContent = msg;
+      box.style.display = 'flex';
+    }
+
+    function resetBtn() {
+      const btn = document.getElementById('submit-btn');
+      document.getElementById('btn-text').style.display = 'block';
+      document.getElementById('btn-spinner').style.display = 'none';
+      btn.disabled = false;
+    }
+
+    document.getElementById('email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitWaitlist();
+    });
+
+    // ─── Scroll reveal ───
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    } else {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = (i % 4) * 70 + 'ms';
+        obs.observe(el);
+      });
+    }
+  </script>
+</body>
+</html>
