@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NORYX — Infrastructure for intelligent systems</title>
+  <title>Noryx | Infrastructure for Intelligent Systems</title>
   <meta name="description" content="Noryx is building an AI-native operating system — calm, intelligent, and built for the way humans actually think.">
   <link rel="canonical" href="https://noryxtechnologies.com/">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="logo.jpg" type="image/jpeg">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -275,129 +275,17 @@
     }
     .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    /* ── OS Window Mockup ── */
-    .os-frame {
-      background: var(--bg-card);
+    /* ── Hero Image ── */
+    .hero-image {
       border: 1px solid var(--border);
-      border-radius: 2px; overflow: hidden;
+      border-radius: 6px;
+      overflow: hidden;
       position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(79,106,255,0.1);
     }
-    .os-frame::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0.2;
+    .hero-image img {
+      width: 100%; height: auto; display: block;
     }
-    .os-titlebar {
-      display: flex; align-items: center;
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(0,0,0,0.5); gap: 8px;
-    }
-    .os-dots { display: flex; gap: 6px; }
-    .os-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
-    .os-title {
-      flex: 1; text-align: center;
-      font-size: 10px; letter-spacing: 2px;
-      color: var(--text-4);
-      font-family: 'Space Grotesk', sans-serif;
-    }
-    .os-body { padding: 14px; display: flex; gap: 10px; }
-    .os-sidebar { display: flex; flex-direction: column; gap: 4px; width: 38px; }
-    .os-icon {
-      width: 36px; height: 36px; border-radius: 2px;
-      background: var(--bg-btn); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; cursor: default;
-      transition: border-color var(--dur) var(--ease);
-    }
-    .os-icon:hover, .os-icon.active { border-color: rgba(79,106,255,0.4); }
-    .os-main { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-
-    .spark {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(79,106,255,0.05);
-      border: 1px solid rgba(79,106,255,0.22);
-      border-radius: 2px; padding: 9px 13px;
-    }
-    .spark-label {
-      flex: 1; font-size: 12px; color: var(--text-2); letter-spacing: 0.3px;
-    }
-    .spark-label strong {
-      color: var(--text); font-family: 'Space Grotesk', sans-serif; font-weight: 500;
-    }
-    .spark-kbd {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 10px; color: var(--text-4);
-      border: 1px solid var(--border);
-      padding: 2px 6px; border-radius: 2px; letter-spacing: 1px;
-    }
-
-    .chips { display: flex; flex-wrap: wrap; gap: 5px; }
-    .chip {
-      padding: 4px 9px; border-radius: 2px;
-      background: var(--bg-btn); border: 1px solid var(--border);
-      font-size: 11px; color: var(--text-2); letter-spacing: 0.3px;
-      cursor: default;
-      transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-    }
-    .chip:hover, .chip.active { border-color: rgba(79,106,255,0.35); color: var(--text); }
-
-    .os-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .os-card {
-      background: var(--bg-btn); border: 1px solid var(--border);
-      border-radius: 2px; padding: 12px; position: relative; overflow: hidden;
-    }
-    .os-card::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0.15;
-    }
-    .os-card-tag {
-      font-size: 9px; letter-spacing: 1.5px;
-      color: rgba(79,106,255,0.75);
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 5px; text-transform: uppercase;
-    }
-    .os-card h4 {
-      font-size: 12px; font-weight: 500;
-      font-family: 'Space Grotesk', sans-serif;
-      letter-spacing: 0.3px; margin-bottom: 4px;
-    }
-    .os-card p { font-size: 11px; color: var(--text-3); line-height: 1.6; }
-    .os-card.span2 { grid-column: 1 / -1; }
-
-    .ai-row { display: flex; align-items: flex-start; gap: 8px; }
-    .ai-badge {
-      padding: 2px 7px;
-      background: rgba(79,106,255,0.1);
-      border: 1px solid rgba(79,106,255,0.25);
-      border-radius: 2px; font-size: 9px;
-      color: rgba(79,106,255,0.85);
-      font-family: 'Space Grotesk', sans-serif;
-      letter-spacing: 1px; white-space: nowrap; margin-top: 1px;
-    }
-    .ai-text { font-size: 11px; color: var(--text-2); line-height: 1.65; }
-    .cursor-blink {
-      display: inline-block; width: 1px; height: 11px;
-      background: var(--accent);
-      margin-left: 1px; vertical-align: middle;
-      animation: blink 1s step-end infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-    .dock {
-      display: flex; justify-content: center; gap: 5px;
-      padding: 8px 14px;
-      background: var(--bg-btn); border: 1px solid var(--border);
-      border-radius: 2px; width: fit-content; margin: 0 auto;
-    }
-    .dock-item {
-      width: 30px; height: 30px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; cursor: default; border-radius: 2px;
-      transition: background var(--dur) var(--ease);
-    }
-    .dock-item:hover { background: rgba(79,106,255,0.1); }
 
     /* ── Sections ── */
     section { border-bottom: 1px solid var(--border); }
@@ -935,57 +823,8 @@
             </a>
           </div>
         </div>
-        <div class="os-frame fade-in d5" role="img" aria-label="Noryx OS desktop preview mockup">
-          <div class="os-titlebar">
-            <div class="os-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <div class="os-title">NORYX OS</div>
-            <div style="width:30px"></div>
-          </div>
-          <div class="os-body">
-            <div class="os-sidebar" aria-hidden="true">
-              <div class="os-icon active">&#128193;</div>
-              <div class="os-icon">&#9881;&#65039;</div>
-              <div class="os-icon">&#128172;</div>
-              <div class="os-icon">&#128269;</div>
-            </div>
-            <div class="os-main">
-              <div class="spark">
-                <div class="spark-label"><strong>Noryx.AI</strong> &nbsp;What can I help with?</div>
-                <div class="spark-kbd">&#8984;K</div>
-              </div>
-              <div class="chips">
-                <div class="chip active">Workflows</div>
-                <div class="chip">Files</div>
-                <div class="chip">Terminal</div>
-                <div class="chip">Notes</div>
-              </div>
-              <div class="os-cards">
-                <div class="os-card">
-                  <div class="os-card-tag">SYSTEM</div>
-                  <h4>Immutable Core</h4>
-                  <p>OSTree-based. Atomic updates, instant rollback.</p>
-                </div>
-                <div class="os-card">
-                  <div class="os-card-tag">RUNTIME</div>
-                  <h4>Snappy &lt;10s</h4>
-                  <p>Cold boot to desktop in under 10 seconds.</p>
-                </div>
-                <div class="os-card span2">
-                  <div class="ai-row">
-                    <div class="ai-badge">AI</div>
-                    <div class="ai-text">Summarising 3 open documents and drafting follow-up based on your calendar context<span class="cursor-blink" aria-hidden="true"></span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="dock" aria-hidden="true">
-                <div class="dock-item">&#128196;</div>
-                <div class="dock-item">&#127912;</div>
-                <div class="dock-item">&#128187;</div>
-                <div class="dock-item">&#127911;</div>
-                <div class="dock-item">&#9881;&#65039;</div>
-              </div>
-            </div>
-          </div>
+        <div class="hero-image fade-in d5">
+          <img src="hero.png" alt="Noryx OS desktop — dark interface with command center, system tray, and dock" width="1024" height="640" loading="eager">
         </div>
       </div>
     </section>
