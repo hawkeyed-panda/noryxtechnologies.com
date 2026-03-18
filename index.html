@@ -824,7 +824,7 @@
           </div>
         </div>
         <div class="hero-image fade-in d5">
-          <img src="hero.png" alt="Noryx OS desktop — dark interface with command center, system tray, and dock" width="1024" height="640" loading="eager">
+          <img src="hero.png" alt="Noryx OS desktop — dark interface showing Music, Files, Docs, and Settings apps with dock" width="1024" height="640" loading="eager">
         </div>
       </div>
     </section>
@@ -1201,7 +1201,7 @@
       });
 
       // Waitlist form
-      const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzPpAilPPrhUL0LE9O-wIEoDhdTsuFL2QQeBokBWcug4F7aXu_VuRwLGVs_vOyR0ic/exec';
 
       const form = $('#waitlist-form');
       const nameInput = $('#name-input');
@@ -1241,16 +1241,28 @@
         setLoading(true);
 
         try {
+          const payload = JSON.stringify({
+            name, email, role,
+            timestamp: new Date().toISOString(),
+            source: 'website'
+          });
+
           const res = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({
-              name, email, role,
-              timestamp: new Date().toISOString(),
-              source: 'website'
-            })
+            body: payload,
+            redirect: 'follow'
           });
-          const data = await res.json();
+
+          let data;
+          try {
+            data = await res.json();
+          } catch {
+            if (res.ok || res.type === 'opaque') {
+              data = { result: 'success' };
+            } else {
+              throw new Error('Invalid response from server');
+            }
+          }
 
           if (data.result === 'success') {
             form.style.display = 'none';
