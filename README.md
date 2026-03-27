@@ -21,11 +21,16 @@ NORYX is building an AI-native operating system designed from the ground up — 
 ## Repository
 
 ```
-├── index.html       # Website (single-file, self-contained)
-├── logo.jpg         # Brand mark
-├── favicon.svg      # Browser favicon (SVG)
-├── og-image.png     # Social sharing image (1200×630) — add before launch
-├── CNAME            # GitHub Pages custom domain
+├── index.html              # Company homepage
+├── noryxos.html            # NoryxOS product page
+├── careers.html            # Careers page
+├── styles.css              # Shared stylesheet
+├── logo.jpg                # Brand mark
+├── hero.png                # NoryxOS hero screenshot
+├── google-apps-script.js   # Waitlist backend (Apps Script)
+├── favicon.svg             # Browser favicon (SVG)
+├── og-image.png            # Social sharing image (1200×630) — add before launch
+├── CNAME                   # GitHub Pages custom domain
 ├── .gitignore
 └── README.md
 ```

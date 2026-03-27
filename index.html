@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Noryx | Infrastructure for Intelligent Systems</title>
-  <meta name="description" content="Noryx is building an AI-native operating system — calm, intelligent, and built for the way humans actually think.">
+  <title>NORYX | Infrastructure for Intelligent Systems</title>
+  <meta name="description" content="NORYX Technologies is building the next generation of intelligent computing — an AI-native operating system designed from the ground up for calm, speed, and privacy.">
   <link rel="canonical" href="https://noryxtechnologies.com/">
   <link rel="icon" href="logo.jpg" type="image/jpeg">
 
@@ -12,19 +12,20 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://noryxtechnologies.com/">
   <meta property="og:title" content="NORYX — Infrastructure for intelligent systems">
-  <meta property="og:description" content="Noryx is building an AI-native operating system — calm, intelligent, and built for the way humans actually think.">
+  <meta property="og:description" content="NORYX Technologies is building the next generation of intelligent computing — an AI-native operating system designed from the ground up.">
   <meta property="og:image" content="https://noryxtechnologies.com/og-image.png">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@buildnoryx">
   <meta name="twitter:title" content="NORYX — Infrastructure for intelligent systems">
-  <meta name="twitter:description" content="Noryx is building an AI-native operating system — calm, intelligent, and built for the way humans actually think.">
+  <meta name="twitter:description" content="NORYX Technologies is building the next generation of intelligent computing — an AI-native operating system designed from the ground up.">
   <meta name="twitter:image" content="https://noryxtechnologies.com/og-image.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -43,719 +44,6 @@
     ]
   }
   </script>
-
-  <style>
-    :root {
-      --bg:         #000000;
-      --bg-card:    #0A0D12;
-      --bg-btn:     #161A20;
-      --text:       #FFFFFF;
-      --text-2:     #AEB3BB;
-      --text-3:     #6B7280;
-      --text-4:     #4B5563;
-      --border:     #2A2F38;
-      --accent:     #4F6AFF;
-      --accent-dim: rgba(79,106,255,0.08);
-      --max-w:      1280px;
-      --px:         32px;
-      --ease:       cubic-bezier(0.4, 0, 0.2, 1);
-      --dur:        150ms;
-      --glow:       linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(79,106,255,0.08) 50%, rgba(0,0,0,1) 100%);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
-
-    .wrap {
-      width: min(calc(100% - var(--px) * 2), var(--max-w));
-      margin: 0 auto;
-    }
-
-    .wordmark {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-weight: 500;
-      letter-spacing: 4px;
-    }
-
-    /* ── Skip Link ── */
-    .skip-link {
-      position: absolute; top: -100%;
-      left: 50%; transform: translateX(-50%);
-      background: var(--accent); color: #fff;
-      padding: 8px 16px; border-radius: 0 0 4px 4px;
-      font-size: 13px; z-index: 999;
-      transition: top 0.2s;
-    }
-    .skip-link:focus { top: 0; }
-
-    /* ── Progress Bar ── */
-    #progress {
-      position: fixed; top: 0; left: 0;
-      height: 2px; width: 0%;
-      background: var(--accent);
-      z-index: 200;
-      transition: width 0.1s linear;
-      box-shadow: 0 0 8px rgba(79,106,255,0.5);
-    }
-
-    /* ── Buttons ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 7px 14px;
-      background: var(--bg-btn);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      color: var(--text-2);
-      cursor: pointer;
-      transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
-      white-space: nowrap;
-    }
-    .btn:hover { color: var(--text); border-color: var(--accent); }
-    .btn svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-    .btn-primary {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-    }
-    .btn-primary:hover {
-      background: #6678ff; border-color: #6678ff; color: #fff;
-    }
-
-    /* ── Nav ── */
-    .nav-shell {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-    }
-    .nav-shell::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0.2;
-    }
-    .nav-shell::after {
-      content: ""; position: absolute; inset: 0;
-      background: var(--glow); filter: blur(15px);
-      pointer-events: none;
-    }
-
-    .nav-inner {
-      position: relative; z-index: 1;
-      height: 72px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-
-    .nav-brand {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .nav-logo {
-      width: 36px; height: 36px;
-      mix-blend-mode: screen; filter: brightness(1.05);
-      image-rendering: auto;
-    }
-    .nav-wordmark { font-size: 22px; letter-spacing: 3px; }
-
-    .nav-links {
-      display: flex; gap: 28px;
-      font-size: 12px; letter-spacing: 1.5px; color: var(--text-2);
-    }
-    .nav-links a {
-      transition: color var(--dur) var(--ease);
-    }
-    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
-
-    .nav-cta {
-      padding: 9px 18px; font-size: 12px; letter-spacing: 0.5px;
-    }
-
-    /* Hamburger */
-    .hamburger {
-      display: none; flex-direction: column; justify-content: center; gap: 5px;
-      width: 36px; height: 36px;
-      background: var(--bg-btn); border: 1px solid var(--border);
-      border-radius: 2px; cursor: pointer; padding: 8px;
-      transition: border-color var(--dur) var(--ease);
-    }
-    .hamburger:hover { border-color: var(--accent); }
-    .hamburger span {
-      display: block; height: 1px; background: var(--text-2); border-radius: 1px;
-      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
-    }
-    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--text); }
-    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--text); }
-
-    .mobile-menu {
-      display: none; position: fixed;
-      top: 72px; left: 0; right: 0;
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      z-index: 99; overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.3s var(--ease), padding 0.3s var(--ease);
-    }
-    .mobile-menu[aria-hidden="false"] {
-      max-height: 400px; padding: 8px 0 16px;
-    }
-    .mobile-menu a {
-      display: block; padding: 14px 32px;
-      font-size: 13px; letter-spacing: 1px; color: var(--text-2);
-      border-bottom: 1px solid var(--border);
-      transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
-    }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--text); background: var(--bg-btn); }
-
-    /* ── Hero ── */
-    .hero {
-      position: relative;
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-      padding: 96px var(--px);
-    }
-    .hero-glow {
-      position: absolute; inset: 0;
-      background: var(--glow); filter: blur(15px);
-      pointer-events: none;
-    }
-    .hero::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0.3;
-    }
-
-    .hero-grid {
-      position: relative; z-index: 1;
-      max-width: var(--max-w); margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1.05fr;
-      gap: 80px; align-items: center;
-    }
-
-    .hero-eyebrow {
-      font-size: 11px; letter-spacing: 1.5px;
-      color: var(--text-2); margin-bottom: 20px;
-    }
-    .hero-logo {
-      width: 44px; height: 44px; margin-bottom: 20px;
-      mix-blend-mode: screen; filter: brightness(1.05);
-    }
-
-    h1 {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-weight: 500;
-      font-size: clamp(30px, 4.5vw, 52px);
-      letter-spacing: 0.025em;
-      line-height: 1.1;
-      margin-bottom: 18px;
-    }
-
-    .hero-sub {
-      font-size: 14px; letter-spacing: 0.025em;
-      color: var(--text-2); line-height: 1.85;
-      max-width: 50ch; margin-bottom: 36px;
-    }
-    .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-    /* ── Hero Image ── */
-    .hero-image {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(79,106,255,0.1);
-    }
-    .hero-image img {
-      width: 100%; height: auto; display: block;
-    }
-
-    /* ── Sections ── */
-    section { border-bottom: 1px solid var(--border); }
-    .section-wrap {
-      max-width: var(--max-w); margin: 0 auto;
-      padding: 80px var(--px);
-    }
-    .section-label {
-      font-size: 11px; letter-spacing: 1.5px;
-      color: var(--text-2); margin-bottom: 16px;
-      text-transform: uppercase;
-    }
-    h2 {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-weight: 500;
-      font-size: clamp(22px, 3vw, 36px);
-      letter-spacing: 0.025em; line-height: 1.15;
-      margin-bottom: 12px;
-    }
-    .section-sub {
-      font-size: 14px; letter-spacing: 0.025em;
-      color: var(--text-3); line-height: 1.8;
-      max-width: 58ch;
-    }
-
-    /* ── Features ── */
-    .features-header { margin-bottom: 40px; }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      border: 1px solid var(--border); border-radius: 2px;
-      overflow: hidden;
-    }
-    .feature {
-      padding: 32px 28px;
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-card);
-      position: relative; overflow: hidden;
-      transition: background var(--dur) var(--ease);
-    }
-    .feature:hover { background: var(--bg-btn); }
-    .feature::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0;
-      transition: opacity var(--dur) var(--ease);
-    }
-    .feature:hover::before { opacity: 0.25; }
-    .feature:nth-child(3n) { border-right: none; }
-    .feature:nth-last-child(-n+3) { border-bottom: none; }
-    .feature-num {
-      font-size: 10px; letter-spacing: 2px;
-      color: var(--text-4);
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 16px;
-    }
-    .feature h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 500; font-size: 16px;
-      letter-spacing: 0.025em; margin-bottom: 10px;
-    }
-    .feature p { font-size: 12px; color: var(--text-3); line-height: 1.75; }
-
-    /* ── Vision / Philosophy ── */
-    .philosophy-grid {
-      display: grid; grid-template-columns: 1fr 1.5fr;
-      gap: 80px; align-items: start;
-    }
-    .philosophy-quote {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 500;
-      font-size: clamp(18px, 2.2vw, 26px);
-      letter-spacing: 0.025em; line-height: 1.45;
-    }
-    .accent-text { color: var(--accent); }
-    .philosophy-body { display: flex; flex-direction: column; gap: 20px; }
-    .philosophy-para {
-      font-size: 14px; color: var(--text-2);
-      line-height: 1.85; letter-spacing: 0.025em;
-    }
-    .philosophy-para strong { color: var(--text); font-weight: 500; }
-
-    .stats-row {
-      display: flex;
-      border: 1px solid var(--border);
-      border-radius: 2px; overflow: hidden;
-    }
-    .stat {
-      flex: 1; padding: 24px 28px;
-      border-right: 1px solid var(--border);
-      position: relative;
-    }
-    .stat:last-child { border-right: none; }
-    .stat::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0.2;
-    }
-    .stat-value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 500; font-size: 28px;
-      letter-spacing: 0.025em; margin-bottom: 4px;
-    }
-    .stat-label { font-size: 11px; letter-spacing: 1px; color: var(--text-3); }
-
-    /* ── Roadmap ── */
-    .roadmap-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr);
-      border: 1px solid var(--border);
-      border-radius: 2px; overflow: hidden;
-      margin-top: 40px;
-    }
-    .roadmap-item {
-      padding: 28px 20px;
-      border-right: 1px solid var(--border);
-      background: var(--bg-card);
-      position: relative; overflow: hidden;
-      transition: background var(--dur) var(--ease);
-    }
-    .roadmap-item:last-child { border-right: none; }
-    .roadmap-item:hover, .roadmap-item.active { background: var(--bg-btn); }
-    .roadmap-item::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0;
-    }
-    .roadmap-item.active::before { opacity: 0.3; }
-    .roadmap-phase {
-      font-size: 10px; letter-spacing: 1.5px;
-      color: var(--text-4);
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 10px; text-transform: uppercase;
-    }
-    .roadmap-item.active .roadmap-phase { color: rgba(79,106,255,0.75); }
-    .roadmap-item h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 500; font-size: 14px;
-      letter-spacing: 0.025em; margin-bottom: 8px;
-    }
-    .roadmap-item p { font-size: 11px; color: var(--text-3); line-height: 1.7; }
-    .roadmap-tag {
-      display: inline-block; margin-top: 14px;
-      padding: 3px 8px; border-radius: 2px;
-      font-size: 10px; letter-spacing: 0.5px;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-    .tag-active {
-      background: rgba(79,106,255,0.1);
-      border: 1px solid rgba(79,106,255,0.28);
-      color: rgba(79,106,255,0.85);
-    }
-    .tag-future {
-      background: var(--bg); border: 1px solid var(--border);
-      color: var(--text-4);
-    }
-
-    /* ── About ── */
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1.6fr;
-      gap: 80px; align-items: start;
-    }
-    .about-quote {
-      margin-top: 28px; padding: 20px 24px;
-      border-left: 2px solid var(--accent);
-      background: rgba(79,106,255,0.04);
-      border-radius: 0 2px 2px 0;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px; font-weight: 400;
-      color: var(--text-2); line-height: 1.8;
-      letter-spacing: 0.025em;
-    }
-    .about-right { display: flex; flex-direction: column; gap: 20px; }
-    .about-para {
-      font-size: 14px; color: var(--text-2);
-      line-height: 1.85; letter-spacing: 0.025em;
-    }
-    .about-para strong { color: var(--text); font-weight: 500; }
-    .about-pillars {
-      display: flex; gap: 8px; flex-wrap: wrap;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-      margin-top: 4px;
-    }
-    .about-pillar {
-      padding: 6px 12px;
-      background: rgba(79,106,255,0.08);
-      border: 1px solid rgba(79,106,255,0.2);
-      border-radius: 2px;
-    }
-    .about-pillar-label {
-      font-size: 11px; letter-spacing: 1px;
-      color: rgba(79,106,255,0.8);
-      font-family: 'Space Grotesk', sans-serif;
-      text-transform: uppercase;
-    }
-
-    /* ── FAQ ── */
-    .faq-list {
-      margin-top: 40px;
-      border: 1px solid var(--border);
-      border-radius: 2px; overflow: hidden;
-    }
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-card);
-      transition: background var(--dur) var(--ease);
-    }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-q {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 20px 28px; cursor: pointer; gap: 24px;
-      transition: background var(--dur) var(--ease);
-      border: none; background: transparent; color: inherit;
-      width: 100%; text-align: left;
-      font-family: inherit;
-    }
-    .faq-q:hover { background: var(--bg-btn); }
-    .faq-q:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-    .faq-q-text {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 500; font-size: 14px;
-      letter-spacing: 0.025em;
-    }
-    .faq-icon {
-      width: 20px; height: 20px;
-      border: 1px solid var(--border); border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: border-color var(--dur) var(--ease), transform 0.25s var(--ease);
-    }
-    .faq-item[open] .faq-icon {
-      border-color: rgba(79,106,255,0.4);
-      transform: rotate(45deg);
-    }
-    .faq-icon svg { width: 10px; height: 10px; }
-    .faq-a {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.3s var(--ease), padding 0.3s var(--ease);
-      padding: 0 28px;
-    }
-    .faq-item[open] .faq-a {
-      max-height: 200px; padding: 0 28px 20px;
-    }
-    .faq-a p {
-      font-size: 13px; color: var(--text-2);
-      line-height: 1.8; letter-spacing: 0.025em;
-      border-top: 1px solid var(--border);
-      padding-top: 16px;
-    }
-
-    /* ── Waitlist ── */
-    .waitlist-section {
-      position: relative; background: var(--bg); overflow: hidden;
-    }
-    .waitlist-section::before {
-      content: ""; position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: var(--accent); opacity: 0.3;
-    }
-    .waitlist-glow {
-      position: absolute; inset: 0;
-      background: var(--glow); filter: blur(15px);
-      pointer-events: none;
-    }
-    .waitlist-inner {
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
-    }
-    .waitlist-logo {
-      width: 44px; height: 44px; margin-bottom: 18px;
-      mix-blend-mode: screen; filter: brightness(1.05);
-    }
-
-    .form-label {
-      font-size: 11px; letter-spacing: 1.5px;
-      color: var(--text-2); margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-    .form-field-row { display: flex; gap: 8px; margin-bottom: 8px; }
-    .form-select-row { display: flex; gap: 8px; }
-    .form-input {
-      flex: 1;
-      background: var(--bg-btn);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 10px 14px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px; color: var(--text);
-      outline: none; letter-spacing: 0.3px;
-      transition: border-color var(--dur) var(--ease);
-    }
-    .form-input::placeholder { color: var(--text-4); }
-    .form-input:focus { border-color: rgba(79,106,255,0.45); }
-    .form-select {
-      appearance: none; -webkit-appearance: none;
-      cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234B5563' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      padding-right: 32px; color: var(--text-4);
-    }
-    .form-select option { background: var(--bg-btn); color: var(--text); }
-
-    .form-error {
-      display: none; align-items: center; gap: 8px;
-      padding: 9px 13px;
-      background: rgba(220,60,60,0.06);
-      border: 1px solid rgba(220,60,60,0.22);
-      border-radius: 2px; font-size: 12px;
-      color: #ff6b6b; letter-spacing: 0.3px;
-      margin-top: 8px;
-    }
-    .form-success {
-      display: none; align-items: center; gap: 8px;
-      padding: 10px 14px;
-      background: rgba(79,106,255,0.06);
-      border: 1px solid rgba(79,106,255,0.22);
-      border-radius: 2px; font-size: 12px;
-      color: var(--text-2); letter-spacing: 0.3px;
-    }
-    .form-note {
-      font-size: 11px; color: var(--text-4);
-      margin-top: 10px; letter-spacing: 0.3px;
-    }
-    .form-note a {
-      color: var(--text-3);
-      border-bottom: 1px solid var(--border);
-      transition: color var(--dur) var(--ease);
-    }
-    .form-note a:hover { color: var(--text-2); }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── Footer ── */
-    footer {
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-    }
-    .footer-inner {
-      max-width: var(--max-w); margin: 0 auto;
-      padding: 48px var(--px);
-      display: flex; flex-direction: column;
-      align-items: center; text-align: center;
-    }
-    .footer-logo {
-      width: 36px; height: 36px; margin-bottom: 10px;
-      mix-blend-mode: screen; filter: brightness(1.05);
-    }
-    .footer-wordmark { font-size: 16px; letter-spacing: 3px; margin-bottom: 4px; }
-    .footer-tagline {
-      font-size: 10px; letter-spacing: 1px;
-      color: var(--text-3); margin-bottom: 20px;
-    }
-    .footer-divider {
-      width: 160px; height: 1px;
-      background: var(--border); margin-bottom: 20px;
-    }
-    .footer-contact {
-      font-size: 10px; letter-spacing: 0.5px;
-      color: var(--text-3); line-height: 1.9; margin-bottom: 20px;
-    }
-    .footer-socials {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
-    }
-    .social-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px;
-      background: var(--bg-btn); border: 1px solid var(--border);
-      border-radius: 2px; color: var(--text-2);
-      transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
-    }
-    .social-btn:hover { color: var(--text); border-color: var(--accent); }
-    .social-btn svg { width: 15px; height: 15px; }
-    .footer-legal {
-      font-size: 8px; letter-spacing: 0.3px;
-      color: var(--text-4); line-height: 1.9;
-      max-width: 440px; margin-bottom: 6px;
-    }
-    .footer-copyright {
-      font-size: 8px; letter-spacing: 0.5px; color: var(--text-4);
-    }
-
-    /* ── Back to Top ── */
-    #back-to-top {
-      position: fixed; bottom: 32px; right: 32px;
-      width: 40px; height: 40px;
-      background: var(--bg-btn); border: 1px solid var(--border);
-      border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-      z-index: 99; color: var(--text-2);
-    }
-    #back-to-top.visible { opacity: 1; pointer-events: auto; }
-    #back-to-top:hover { border-color: var(--accent); transform: translateY(-2px); }
-    #back-to-top svg { width: 14px; height: 14px; stroke: currentColor; }
-
-    /* ── Animations ── */
-    .reveal {
-      opacity: 0; transform: translateY(14px);
-      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    .fade-in { animation: fadeUp 0.55s var(--ease) both; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .d1 { animation-delay: 0.05s; }
-    .d2 { animation-delay: 0.12s; }
-    .d3 { animation-delay: 0.19s; }
-    .d4 { animation-delay: 0.27s; }
-    .d5 { animation-delay: 0.38s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-      .reveal { opacity: 1; transform: none; }
-      html { scroll-behavior: auto; }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 960px) {
-      .hamburger { display: flex; }
-      .mobile-menu { display: block; }
-      .nav-links { display: none; }
-      .nav-cta { display: none; }
-
-      .hero-grid,
-      .philosophy-grid,
-      .waitlist-inner,
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-
-      .features-grid { grid-template-columns: 1fr 1fr; }
-      .feature:nth-child(3n) { border-right: 1px solid var(--border); }
-      .feature:nth-child(2n) { border-right: none; }
-      .feature:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
-      .feature:last-child { border-bottom: none; }
-
-      .roadmap-grid { grid-template-columns: 1fr 1fr; }
-      .roadmap-item:nth-child(2n) { border-right: none; }
-      .roadmap-item { border-bottom: 1px solid var(--border); }
-      .roadmap-item:last-child { border-bottom: none; }
-    }
-
-    @media (max-width: 600px) {
-      :root { --px: 20px; }
-      #back-to-top { bottom: 20px; right: 20px; }
-
-      .features-grid { grid-template-columns: 1fr; }
-      .feature { border-right: none !important; }
-
-      .roadmap-grid { grid-template-columns: 1fr; }
-      .roadmap-item { border-right: none; border-bottom: 1px solid var(--border); }
-
-      .stats-row { flex-direction: column; }
-      .stat { border-right: none; border-bottom: 1px solid var(--border); }
-      .stat:last-child { border-bottom: none; }
-
-      .form-field-row,
-      .form-select-row { flex-direction: column; }
-    }
-  </style>
 </head>
 
 <body>
@@ -764,28 +52,36 @@
 
   <!-- Mobile menu -->
   <nav class="mobile-menu" id="mobile-menu" aria-hidden="true" aria-label="Mobile navigation">
-    <a href="#features">Features</a>
+    <span class="mobile-menu-label">Products</span>
+    <a href="noryxos.html">NoryxOS</a>
+    <a href="careers.html">Careers</a>
     <a href="#about">About</a>
-    <a href="#roadmap">Roadmap</a>
-    <a href="#faq">FAQ</a>
-    <a href="#waitlist">Get early access</a>
+    <a href="#contact">Contact</a>
   </nav>
 
   <!-- Nav -->
   <header class="nav-shell">
     <div class="wrap">
       <nav class="nav-inner" aria-label="Main navigation">
-        <a href="#" class="nav-brand" aria-label="NORYX — Home">
+        <a href="/" class="nav-brand" aria-label="NORYX — Home">
           <img src="logo.jpg" class="nav-logo" alt="" width="36" height="36">
           <span class="wordmark nav-wordmark">NORYX</span>
         </a>
         <div class="nav-links" role="list">
-          <a href="#features" role="listitem">Features</a>
+          <div class="nav-dropdown" role="listitem">
+            <button class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              Products
+              <svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav-dropdown-menu" role="menu">
+              <a href="noryxos.html" role="menuitem">NoryxOS</a>
+            </div>
+          </div>
+          <a href="careers.html" role="listitem">Careers</a>
           <a href="#about" role="listitem">About</a>
-          <a href="#roadmap" role="listitem">Roadmap</a>
-          <a href="#faq" role="listitem">FAQ</a>
+          <a href="#contact" role="listitem">Contact</a>
         </div>
-        <a href="#waitlist" class="btn btn-primary nav-cta">
+        <a href="noryxos.html#waitlist" class="btn btn-primary nav-cta">
           Get early access
           <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -802,146 +98,24 @@
     <!-- Hero -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-glow" aria-hidden="true"></div>
-      <div class="hero-grid">
-        <div>
-          <div class="hero-eyebrow fade-in d1">BUILDING IN STEALTH &middot; DEVELOPER PREVIEW Q4 2026</div>
-          <img src="logo.jpg" class="hero-logo fade-in d2" alt="NORYX symbol" width="44" height="44">
-          <h1 id="hero-heading" class="fade-in d3">Computing should feel intelligent by default.</h1>
-          <p class="hero-sub fade-in d4">Noryx is an AI-native operating system built from the ground up &mdash; not AI bolted onto old interfaces. A new system layer where intelligence lives in the fabric of the OS itself.</p>
-          <div class="hero-actions fade-in d5">
-            <a href="#waitlist" class="btn btn-primary" style="padding:9px 18px;">
-              Join waitlist
-              <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-            <a href="#features" class="btn">
-              Explore features
-              <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M6 2v8M6 10L3 7M6 10l3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="hero-image fade-in d5">
-          <img src="hero.png" alt="Noryx OS desktop — dark interface showing Music, Files, Docs, and Settings apps with dock" width="1024" height="640" loading="eager">
-        </div>
-      </div>
-    </section>
-
-    <!-- Features -->
-    <section id="features" aria-labelledby="features-heading">
-      <div class="section-wrap">
-        <div class="features-header reveal">
-          <div class="section-label">What we're building</div>
-          <h2 id="features-heading">Designed for clarity, built for speed.</h2>
-          <p class="section-sub">Every layer of Noryx OS is purpose-built &mdash; from the kernel to the compositor to the AI pipeline.</p>
-        </div>
-        <div class="features-grid reveal">
-          <div class="feature">
-            <div class="feature-num">01</div>
-            <h3>Calm Glass</h3>
-            <p>A compositing layer that reduces visual noise. Adaptive contrast, muted chrome, and a default dark system theme that feels effortless.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-num">02</div>
-            <h3>Snappy</h3>
-            <p>Cold boot &lt;10 seconds. App launch under 400ms. Zero background bloat. Noryx runs lean because the base image is read-only and minimal.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-num">03</div>
-            <h3>Immutable</h3>
-            <p>OSTree-based root filesystem. Updates are atomic &mdash; the whole image swaps in one operation. Rollback to any previous state instantly.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-num">04</div>
-            <h3>Noryx.AI</h3>
-            <p>A system-native AI assistant. Local 7B LLM with GPU acceleration (CUDA, ROCm, Vulkan). Context-aware. No data leaves your machine by default.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-num">05</div>
-            <h3>Compatibility</h3>
-            <p>Native Linux &amp; Flatpak apps first. Android via Waydroid. Windows via Wine/Proton. Cloud fallbacks last. Most mainstream apps work on day one.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-num">06</div>
-            <h3>NoryxKit SDK</h3>
-            <p>Build apps that talk to the AI layer, respond to system context, and ship as Flatpaks. Open SDK, permissive license, full documentation.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Vision -->
-    <section id="vision" aria-labelledby="vision-heading">
-      <div class="section-wrap">
-        <div class="philosophy-grid">
-          <div class="reveal">
-            <div class="section-label">Vision</div>
-            <h2 id="vision-heading" class="philosophy-quote">"The best OS is the one you <span class="accent-text">never think about</span> &mdash; it just amplifies what you're already trying to do."</h2>
-          </div>
-          <div class="philosophy-body reveal">
-            <p class="philosophy-para">Most operating systems are <strong>infrastructure you fight.</strong> Updates interrupt. Telemetry leaks. AI is bolted onto interfaces designed in 2001. Noryx starts from a different premise: <strong>the OS should disappear</strong> and let intelligence surface naturally.</p>
-            <p class="philosophy-para">We're not building another Linux distro with a theme pack. We're building a <strong>new system layer</strong> &mdash; a compositor, an AI runtime, and a design language that treats calm, speed, and privacy as non-negotiable defaults.</p>
-            <p class="philosophy-para"><strong>Zero default telemetry.</strong> Your data stays on your machine. Period.</p>
-            <div class="stats-row">
-              <div class="stat">
-                <div class="stat-value">&lt;10s</div>
-                <div class="stat-label">Cold boot to desktop</div>
-              </div>
-              <div class="stat">
-                <div class="stat-value">&lt;1.5s</div>
-                <div class="stat-label">First AI token (local)</div>
-              </div>
-              <div class="stat">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Default telemetry</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Roadmap -->
-    <section id="roadmap" aria-labelledby="roadmap-heading">
-      <div class="section-wrap">
-        <div class="reveal">
-          <div class="section-label">Roadmap</div>
-          <h2 id="roadmap-heading">Where we're going.</h2>
-          <p class="section-sub">A 12-month path from foundation to developer preview. We're building in the open &mdash; join the waitlist for milestone updates.</p>
-        </div>
-        <div class="roadmap-grid reveal">
-          <div class="roadmap-item active">
-            <div class="roadmap-phase">Phase 1</div>
-            <h3>Foundation</h3>
-            <p>OSTree base image, immutable root, Wayland compositor scaffold, boot pipeline.</p>
-            <span class="roadmap-tag tag-active">Current</span>
-          </div>
-          <div class="roadmap-item">
-            <div class="roadmap-phase">Phase 2</div>
-            <h3>System Shell</h3>
-            <p>Launcher, panel, notifications, settings. Calm Glass design language. First usable desktop.</p>
-            <span class="roadmap-tag tag-future">Month 3&ndash;4</span>
-          </div>
-          <div class="roadmap-item">
-            <div class="roadmap-phase">Phase 3</div>
-            <h3>AI Runtime</h3>
-            <p>Local LLM integration, Noryx.AI, context engine, prompt APIs. On-device inference pipeline.</p>
-            <span class="roadmap-tag tag-future">Month 5&ndash;6</span>
-          </div>
-          <div class="roadmap-item">
-            <div class="roadmap-phase">Phase 4</div>
-            <h3>App Layer</h3>
-            <p>Flatpak runtime, Waydroid (Android), Wine/Proton (Windows). NoryxKit SDK for developers.</p>
-            <span class="roadmap-tag tag-future">Month 7&ndash;8</span>
-          </div>
-          <div class="roadmap-item">
-            <div class="roadmap-phase">Phase 5</div>
-            <h3>Dev Preview</h3>
-            <p>Closed developer preview. Hardware testing, SDK feedback loop, community onboarding.</p>
-            <span class="roadmap-tag tag-future">Q4 2026</span>
-          </div>
+      <div class="hero-center">
+        <div class="hero-eyebrow fade-in d1">BUILDING IN STEALTH &middot; DEVELOPER PREVIEW Q4 2026</div>
+        <img src="logo.jpg" class="hero-logo fade-in d2" alt="NORYX symbol" width="44" height="44">
+        <h1 id="hero-heading" class="fade-in d3">Infrastructure for<br>intelligent systems.</h1>
+        <p class="hero-sub fade-in d4">NORYX Technologies is building the next generation of personal computing &mdash; starting with an AI-native operating system designed from the ground up for calm, speed, and privacy.</p>
+        <div class="hero-actions fade-in d5">
+          <a href="noryxos.html" class="btn btn-primary btn-lg">
+            Explore NoryxOS
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#about" class="btn btn-lg">
+            Learn more
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M6 2v8M6 10L3 7M6 10l3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
     </section>
@@ -958,16 +132,115 @@
           <div class="about-right reveal">
             <p class="about-para">NORYX started as a frustration. <strong>Modern operating systems are bloated, noisy, and architecturally stuck in the past.</strong> AI was being bolted onto 25-year-old interfaces instead of being woven into the system itself.</p>
             <p class="about-para">We're a small team of systems engineers, AI researchers, and designers. We believe the next operating system won't come from patching the old ones &mdash; it has to be <strong>built from scratch</strong> with intelligence, privacy, and calm as first principles.</p>
-            <p class="about-para">Noryx is that project. <strong>An AI-native OS</strong> &mdash; not a distro, not a theme, not a wrapper. A new foundation for personal computing.</p>
+            <p class="about-para">NORYX Technologies is that mission. We're building <strong>infrastructure for intelligent systems</strong> &mdash; starting with an operating system, and expanding into the tools and platforms that make personal computing genuinely better.</p>
             <div class="about-pillars">
-              <div class="about-pillar">
-                <div class="about-pillar-label">Systems design</div>
+              <div class="about-pillar"><div class="about-pillar-label">Systems design</div></div>
+              <div class="about-pillar"><div class="about-pillar-label">AI inference</div></div>
+              <div class="about-pillar"><div class="about-pillar-label">Human-computer interaction</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product: NoryxOS -->
+    <section id="product" aria-labelledby="product-heading">
+      <div class="section-wrap">
+        <div class="reveal">
+          <div class="section-label">Our Product</div>
+          <h2 id="product-heading">What we're building.</h2>
+          <p class="section-sub">Our first product is an operating system that rethinks personal computing from the kernel up.</p>
+        </div>
+        <a href="noryxos.html" style="text-decoration:none; color:inherit; display:block;">
+          <div class="product-card reveal">
+            <div class="product-card-body">
+              <div class="section-label" style="margin-bottom:8px;">Flagship Product</div>
+              <h3>NoryxOS</h3>
+              <p>An AI-native operating system built from the ground up. Not AI bolted onto old interfaces &mdash; a new system layer where intelligence lives in the fabric of the OS itself. Calm Glass design, on-device AI, immutable updates, and full app compatibility.</p>
+              <div>
+                <span class="btn btn-primary" style="padding:9px 18px;">
+                  Learn more
+                  <svg viewBox="0 0 12 12" fill="none" aria-hidden="true" style="width:12px;height:12px;">
+                    <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
               </div>
-              <div class="about-pillar">
-                <div class="about-pillar-label">AI inference</div>
+            </div>
+            <div class="product-card-image">
+              <img src="hero.png" alt="NoryxOS desktop interface" width="1024" height="640" loading="lazy">
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section id="values" aria-labelledby="values-heading">
+      <div class="section-wrap">
+        <div class="reveal">
+          <div class="section-label">Our Principles</div>
+          <h2 id="values-heading">What we believe.</h2>
+          <p class="section-sub">These principles guide every decision we make &mdash; from architecture choices to pixel placement.</p>
+        </div>
+        <div class="values-grid reveal">
+          <div class="value-card">
+            <div class="value-icon" aria-hidden="true">&#9672;</div>
+            <h3>Privacy by default</h3>
+            <p>Zero telemetry out of the box. Your data stays on your machine. We never build business models that require surveillance.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon" aria-hidden="true">&#9889;</div>
+            <h3>Speed as a feature</h3>
+            <p>Cold boot under 10 seconds. Sub-400ms app launches. Performance isn't an optimization &mdash; it's a core design constraint.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon" aria-hidden="true">&#10024;</div>
+            <h3>Calm technology</h3>
+            <p>Software should reduce cognitive load, not add to it. Every interface we ship is designed to feel effortless and unobtrusive.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon" aria-hidden="true">&#9881;</div>
+            <h3>Build from scratch</h3>
+            <p>Real progress comes from rethinking systems at the foundation. We don't patch &mdash; we rebuild with modern constraints in mind.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon" aria-hidden="true">&#128300;</div>
+            <h3>Intelligence everywhere</h3>
+            <p>AI shouldn't be an app you open &mdash; it should be woven into the system itself. Local, context-aware, always available.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon" aria-hidden="true">&#127760;</div>
+            <h3>Open by conviction</h3>
+            <p>Core components open-sourced under MPL 2.0. An open SDK with permissive licensing. We build in the open because better systems emerge that way.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Company Stats -->
+    <section id="company" aria-labelledby="company-heading">
+      <div class="section-wrap">
+        <div class="philosophy-grid">
+          <div class="reveal">
+            <div class="section-label">The Company</div>
+            <h2 id="company-heading" class="philosophy-quote">"We're not building another Linux distro. We're building a <span class="accent-text">new foundation</span> for personal computing."</h2>
+          </div>
+          <div class="philosophy-body reveal">
+            <p class="philosophy-para">NORYX Technologies LLC was founded with a single conviction: <strong>the operating system is the most important software most people use, and it hasn't been fundamentally rethought in decades.</strong></p>
+            <p class="philosophy-para">We're a small, focused team working at the intersection of systems engineering, AI research, and human-computer interaction. Every person on the team has shipped production systems &mdash; and every one of us believes the industry is ready for something new.</p>
+            <p class="philosophy-para">We're currently <strong>building in stealth</strong> and targeting a developer preview in Q4 2026. If you want to be part of what we're building, <a href="careers.html" style="color:var(--accent); border-bottom: 1px solid rgba(79,106,255,0.3);">we're hiring</a>.</p>
+            <div class="stats-row">
+              <div class="stat">
+                <div class="stat-value">2026</div>
+                <div class="stat-label">Founded</div>
               </div>
-              <div class="about-pillar">
-                <div class="about-pillar-label">Human-computer interaction</div>
+              <div class="stat">
+                <div class="stat-value">Q4 2026</div>
+                <div class="stat-label">Developer preview</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Default telemetry</div>
               </div>
             </div>
           </div>
@@ -975,106 +248,54 @@
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" aria-labelledby="faq-heading">
-      <div class="section-wrap">
-        <div class="reveal">
-          <div class="section-label">FAQ</div>
-          <h2 id="faq-heading">Common questions.</h2>
-          <p class="section-sub">Everything you need to know about Noryx OS before the developer preview.</p>
-        </div>
-        <div class="faq-list reveal" role="list">
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false">
-              <span class="faq-q-text">What hardware will Noryx OS run on?</span>
-              <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            </button>
-            <div class="faq-a"><p>Year 1 targets x86-64 laptops and desktops with good Linux driver coverage &mdash; Framework Laptop 13/16, ThinkPad T/X series, Dell XPS 13/15, and similar. ARM support (Qualcomm/MediaTek reference boards) comes in Year 2.</p></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false">
-              <span class="faq-q-text">Can I run my existing apps on Noryx OS?</span>
-              <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            </button>
-            <div class="faq-a"><p>Yes. Noryx follows a compatibility priority: Native Linux/Flatpak apps first (VS Code, Chrome, Discord, Spotify, Steam), then Android apps via Waydroid, then Windows apps via Wine/Proton, then cloud fallbacks. Most mainstream apps work on day one.</p></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false">
-              <span class="faq-q-text">Is the AI on-device or cloud-based?</span>
-              <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            </button>
-            <div class="faq-a"><p>On-device by default. Noryx.AI runs a quantized local LLM (7B parameters) with full GPU acceleration via CUDA, ROCm, and Vulkan. No data leaves your machine unless you explicitly opt into a cloud connector. Zero default telemetry.</p></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false">
-              <span class="faq-q-text">When can I try it?</span>
-              <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            </button>
-            <div class="faq-a"><p>The Developer Preview (Month 9, Q4 2026) will go to a closed cohort of early sign-ups first. Join the waitlist to be in the first wave. A public open beta follows in Month 10&ndash;12.</p></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false">
-              <span class="faq-q-text">Is Noryx OS open source?</span>
-              <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            </button>
-            <div class="faq-a"><p>Core OS components &mdash; the launcher, Copilot CLI, and design language &mdash; are open-sourced under MPL 2.0. Proprietary UX layers, model weights, and first-party app assets are retained in-house. The SDK is open with a permissive license.</p></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false">
-              <span class="faq-q-text">How does Noryx handle updates and system stability?</span>
-              <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            </button>
-            <div class="faq-a"><p>Noryx uses an OSTree-based immutable base image. Updates are atomic &mdash; the entire OS image is swapped in one operation. If anything goes wrong, you roll back to the previous image instantly. Updates stage in the background and apply on reboot.</p></div>
-          </div>
-        </div>
+    <!-- Careers CTA -->
+    <section class="cta-banner" id="join" aria-labelledby="join-heading">
+      <div class="cta-banner-glow" aria-hidden="true"></div>
+      <div class="cta-banner-inner reveal">
+        <div class="section-label">Careers</div>
+        <h2 id="join-heading">Help us build the future of computing.</h2>
+        <p class="section-sub" style="text-align:center;">We're looking for systems engineers, AI researchers, and designers who believe operating systems deserve to be rethought from the ground up.</p>
+        <a href="careers.html" class="btn btn-primary btn-lg">
+          View open positions
+          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
     </section>
 
-    <!-- Waitlist -->
-    <section class="waitlist-section" id="waitlist" aria-labelledby="waitlist-heading">
+    <!-- Contact -->
+    <section class="waitlist-section" id="contact" aria-labelledby="contact-heading">
       <div class="waitlist-glow" aria-hidden="true"></div>
       <div class="section-wrap">
         <div class="waitlist-inner">
           <div class="reveal">
             <img src="logo.jpg" class="waitlist-logo" alt="" width="44" height="44">
-            <div class="section-label">Get involved early</div>
-            <h2 id="waitlist-heading">Follow the build from day zero.</h2>
-            <p class="section-sub">Join the waitlist for product updates, early previews, and developer access. No spam. Unsubscribe any time.</p>
+            <div class="section-label">Get in touch</div>
+            <h2 id="contact-heading">Let's talk.</h2>
+            <p class="section-sub">Whether you're interested in our products, want to join the team, or just want to say hello &mdash; we'd love to hear from you.</p>
           </div>
           <div class="reveal">
-            <div class="form-label" id="form-heading">Join the waitlist</div>
-            <form id="waitlist-form" style="max-width:480px;" aria-labelledby="form-heading" novalidate>
-              <div class="form-field-row">
-                <input type="text" class="form-input" placeholder="Your name" id="name-input" autocomplete="name" required aria-label="Your name">
-                <input type="email" class="form-input" placeholder="you@example.com" id="email-input" autocomplete="email" required aria-label="Email address">
-              </div>
-              <div class="form-select-row">
-                <select class="form-input form-select" id="role-input" required aria-label="Your role">
-                  <option value="" disabled selected>I am a...</option>
-                  <option value="developer">Developer</option>
-                  <option value="designer">Designer</option>
-                  <option value="creator">Creator / Student</option>
-                  <option value="investor">Investor</option>
-                  <option value="other">Other</option>
-                </select>
-                <button type="submit" class="btn btn-primary" id="submit-btn" style="padding:10px 20px; font-size:13px; letter-spacing:0.5px; white-space:nowrap;">
-                  <span id="btn-text">Join waitlist</span>
-                  <svg id="btn-spinner" viewBox="0 0 14 14" fill="none" width="14" height="14" style="display:none; animation:spin 0.8s linear infinite;" aria-hidden="true">
-                    <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="20 15"/>
-                  </svg>
-                </button>
-              </div>
-            </form>
-            <div class="form-success" id="form-success" style="max-width:480px;" role="status">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-                <circle cx="6.5" cy="6.5" r="5.5" stroke="#4F6AFF" stroke-width="1.2"/>
-                <path d="M4 6.5l2 2 3.5-3.5" stroke="#4F6AFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              You're on the list. We'll be in touch.
+            <div class="form-label">Reach out</div>
+            <div style="display:flex; flex-direction:column; gap:12px; max-width:480px;">
+              <a href="mailto:hello@noryxtechnologies.com" class="btn btn-lg" style="justify-content:center;">
+                <svg viewBox="0 0 16 16" fill="none" style="width:14px;height:14px;" aria-hidden="true">
+                  <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M1 4.5l7 4.5 7-4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                hello@noryxtechnologies.com
+              </a>
+              <a href="noryxos.html#waitlist" class="btn btn-primary btn-lg" style="justify-content:center;">
+                Join NoryxOS waitlist
+                <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             </div>
-            <div class="form-error" id="form-error" style="max-width:480px;" role="alert"></div>
-            <p class="form-note" style="max-width:480px;">
-              Or reach us at <a href="mailto:hello@noryxtechnologies.com">hello@noryxtechnologies.com</a>
+            <p class="form-note" style="max-width:480px; margin-top:16px;">
+              Follow us on <a href="https://x.com/buildnoryx" target="_blank" rel="noopener noreferrer">X</a>,
+              <a href="https://www.linkedin.com/company/noryx-technologies" target="_blank" rel="noopener noreferrer">LinkedIn</a>, and
+              <a href="https://instagram.com/buildnoryx" target="_blank" rel="noopener noreferrer">Instagram</a> for updates.
             </p>
           </div>
         </div>
@@ -1092,46 +313,58 @@
   <!-- Footer -->
   <footer>
     <div class="footer-inner">
-      <img src="logo.jpg" class="footer-logo" alt="" width="36" height="36">
-      <div class="wordmark footer-wordmark">NORYX</div>
-      <div class="footer-tagline">Infrastructure for intelligent systems</div>
-      <div class="footer-divider" aria-hidden="true"></div>
-      <div class="footer-contact">
-        <a href="mailto:hello@noryxtechnologies.com">hello@noryxtechnologies.com</a><br>
-        www.noryxtechnologies.com
+      <div class="footer-brand">
+        <div class="footer-brand-row">
+          <img src="logo.jpg" class="footer-logo" alt="" width="28" height="28">
+          <div class="wordmark footer-wordmark">NORYX</div>
+        </div>
+        <div class="footer-tagline">Infrastructure for intelligent systems.<br>&copy; 2026 NORYX Technologies LLC. All rights reserved.</div>
       </div>
-      <div class="footer-divider" aria-hidden="true"></div>
-      <nav class="footer-socials" aria-label="Social links">
-        <a href="https://www.linkedin.com/company/noryx-technologies" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </a>
-        <a href="https://x.com/buildnoryx" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X (Twitter)">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-        </a>
-        <a href="https://instagram.com/buildnoryx" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-            <rect x="16.5" y="5.5" width="2" height="2" rx="1" fill="currentColor"/>
-          </svg>
-        </a>
-        <a href="https://www.facebook.com/profile.php?id=61582217492984" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </nav>
-      <div class="footer-legal">
-        CONFIDENTIAL &mdash; This communication and any attachments are intended solely for the addressee.<br>
-        Unauthorized use, disclosure, or distribution is prohibited.
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="noryxos.html">NoryxOS</a>
+        <a href="noryxos.html#features">Features</a>
+        <a href="noryxos.html#roadmap">Roadmap</a>
+        <a href="noryxos.html#faq">FAQ</a>
       </div>
-      <div class="footer-copyright">&copy; 2026 NORYX Technologies LLC. All rights reserved.</div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About</a>
+        <a href="careers.html">Careers</a>
+        <a href="#contact">Contact</a>
+        <a href="mailto:hello@noryxtechnologies.com">Email us</a>
+      </div>
+      <div class="footer-bottom">
+        <nav class="footer-socials" aria-label="Social links">
+          <a href="https://www.linkedin.com/company/noryx-technologies" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </a>
+          <a href="https://x.com/buildnoryx" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://instagram.com/buildnoryx" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+              <rect x="16.5" y="5.5" width="2" height="2" rx="1" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61582217492984" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </nav>
+        <div class="footer-legal">
+          CONFIDENTIAL &mdash; This communication and any attachments are intended solely for the addressee. Unauthorized use, disclosure, or distribution is prohibited.
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -1142,7 +375,6 @@
       const $ = (s, c) => (c || document).querySelector(s);
       const $$ = (s, c) => [...(c || document).querySelectorAll(s)];
 
-      // Scroll progress
       const progress = $('#progress');
       const backBtn = $('#back-to-top');
 
@@ -1158,7 +390,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      // Mobile menu
       const hamburger = $('#hamburger');
       const mobileMenu = $('#mobile-menu');
 
@@ -1182,105 +413,6 @@
         }
       });
 
-      // FAQ accordion
-      $$('.faq-q').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const item = btn.closest('.faq-item');
-          const isOpen = item.hasAttribute('open');
-
-          $$('.faq-item').forEach(i => {
-            i.removeAttribute('open');
-            $('.faq-q', i).setAttribute('aria-expanded', 'false');
-          });
-
-          if (!isOpen) {
-            item.setAttribute('open', '');
-            btn.setAttribute('aria-expanded', 'true');
-          }
-        });
-      });
-
-      // Waitlist form
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzPpAilPPrhUL0LE9O-wIEoDhdTsuFL2QQeBokBWcug4F7aXu_VuRwLGVs_vOyR0ic/exec';
-
-      const form = $('#waitlist-form');
-      const nameInput = $('#name-input');
-      const emailInput = $('#email-input');
-      const roleInput = $('#role-input');
-      const submitBtn = $('#submit-btn');
-      const btnText = $('#btn-text');
-      const spinner = $('#btn-spinner');
-      const errorBox = $('#form-error');
-      const successBox = $('#form-success');
-
-      function showError(msg) {
-        errorBox.textContent = msg;
-        errorBox.style.display = 'flex';
-      }
-
-      function setLoading(loading) {
-        submitBtn.disabled = loading;
-        btnText.style.display = loading ? 'none' : 'block';
-        spinner.style.display = loading ? 'block' : 'none';
-      }
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorBox.style.display = 'none';
-
-        const name = nameInput.value.trim();
-        const email = emailInput.value.trim();
-        const role = roleInput.value;
-
-        if (!name) { showError('Please enter your name.'); return; }
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          showError('Please enter a valid email address.'); return;
-        }
-        if (!role) { showError('Please select your role.'); return; }
-
-        setLoading(true);
-
-        try {
-          const payload = JSON.stringify({
-            name, email, role,
-            timestamp: new Date().toISOString(),
-            source: 'website'
-          });
-
-          const res = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            body: payload,
-            redirect: 'follow'
-          });
-
-          let data;
-          try {
-            data = await res.json();
-          } catch {
-            if (res.ok || res.type === 'opaque') {
-              data = { result: 'success' };
-            } else {
-              throw new Error('Invalid response from server');
-            }
-          }
-
-          if (data.result === 'success') {
-            form.style.display = 'none';
-            successBox.style.display = 'flex';
-          } else if (data.result === 'duplicate') {
-            showError('This email is already on the waitlist!');
-            setLoading(false);
-          } else {
-            throw new Error(data.error || 'Unknown error');
-          }
-        } catch (err) {
-          showError('Something went wrong. Please try again or email us directly.');
-          setLoading(false);
-          console.error('Waitlist error:', err);
-        }
-      });
-
-      // Scroll reveal
       if ('IntersectionObserver' in window) {
         const obs = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
